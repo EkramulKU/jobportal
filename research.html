@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research & Thesis | Ekramul Haque</title>
+  <meta name="description" content="Research projects by Ekramul Haque – Sundarbans ECA land use dynamics and Madhupur National Park forest cover change.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    .research-wrap { max-width: 1060px; margin: 0 auto; padding: 56px 5%; }
+
+    /* Featured thesis */
+    .thesis-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .thesis-card-top {
+      background: linear-gradient(135deg, #f0f7ff 0%, #f0faf8 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 32px;
+    }
+
+    .thesis-card-body { padding: 28px 32px; }
+
+    .thesis-title {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 12px 0 12px;
+      line-height: 1.4;
+    }
+
+    .thesis-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 16px; }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+    }
+
+    .meta-pill i { color: var(--accent); font-size: 0.7rem; }
+
+    .thesis-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tool-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-body);
+    }
+
+    /* Method grid */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .method-item {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .method-item:hover { background: var(--accent-light); border-color: #b8d9ef; }
+    .method-item i { font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
+    .method-item h4 { font-size: 0.78rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .method-item p { font-size: 0.7rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* BSc card */
+    .bsc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    .bsc-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 12px 0 10px;
+      line-height: 1.4;
+    }
+
+    .bsc-card p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+
+    .findings-list { padding-left: 0; }
+    .findings-list li {
+      padding: 7px 0;
+      padding-left: 18px;
+      position: relative;
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--bg-soft);
+    }
+    .findings-list li:last-child { border-bottom: none; }
+    .findings-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; }
+
+    /* Tools section */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tool-card:hover { box-shadow: var(--shadow-md); border-color: var(--border-dark); transform: translateY(-2px); }
+    .tool-card i { font-size: 1.4rem; color: var(--accent); margin-bottom: 8px; }
+    .tool-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .tool-card p { font-size: 0.68rem; color: var(--text-muted); }
+
+    @media (max-width: 700px) {
+      .thesis-card-top, .thesis-card-body { padding: 20px; }
+      .bsc-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="main-wrap">
+  <div class="page-header">
+    <h1>Research & Thesis</h1>
+    <p>Spatial analysis, remote sensing, and evidence-based environmental science</p>
+  </div>
+
+  <div class="research-wrap">
+
+    <!-- GRADUATE THESIS -->
+    <div class="section-divider fade-up">
+      <div class="sd-icon"><i class="fas fa-graduation-cap"></i></div>
+      <h2>Graduate Thesis</h2>
+    </div>
+
+    <div class="thesis-card fade-up delay-1">
+      <div class="thesis-card-top">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <span class="badge badge-gold"><i class="fas fa-circle" style="font-size:0.5rem;animation:pulse 1.5s ease-in-out infinite"></i> Ongoing Research</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted)">MSc Forestry · 2024–Present</span>
+        </div>
+        <h2 class="thesis-title">Spatiotemporal Dynamics of Land Use and Land Cover in the Sundarbans Ecologically Critical Area (2000–2025)</h2>
+        <div class="thesis-meta">
+          <span class="meta-pill"><i class="fas fa-university"></i> Khulna University</span>
+          <span class="meta-pill"><i class="fas fa-map-marker-alt"></i> Sundarbans, Bangladesh</span>
+          <span class="meta-pill"><i class="fas fa-calendar"></i> 2024 – Present</span>
+        </div>
+      </div>
+      <div class="thesis-card-body">
+        <p class="thesis-desc">
+          This research investigates the 25-year trajectory of land use and land cover (LULC) change within the Sundarbans
+          Ecologically Critical Area — the world's largest mangrove forest. Using multi-temporal satellite imagery from Landsat
+          and Sentinel-2, processed through Google Earth Engine, the study quantifies habitat transformation, tracks vegetation
+          loss, and models future land cover scenarios. The findings are expected to provide evidence-based policy recommendations
+          for sustainable forest management and mangrove conservation.
+        </p>
+        <div class="tool-tags">
+          <span class="tool-tag"><i class="fas fa-globe" style="color:var(--accent)"></i> Google Earth Engine</span>
+          <span class="tool-tag"><i class="fas fa-map" style="color:var(--accent)"></i> ArcGIS Pro</span>
+          <span class="tool-tag"><i class="fas fa-satellite" style="color:var(--accent)"></i> Landsat & Sentinel-2</span>
+          <span class="tool-tag"><i class="fas fa-chart-line" style="color:var(--accent)"></i> LULC Change Detection</span>
+          <span class="tool-tag"><i class="fas fa-code" style="color:var(--accent)"></i> JavaScript (GEE)</span>
+        </div>
+
+        <div class="method-grid" style="margin-top:28px;">
+          <div class="method-item">
+            <i class="fas fa-satellite"></i>
+            <h4>Multi-Temporal Imagery</h4>
+            <p>Landsat 5/7/8/9 & Sentinel-2</p>
+          </div>
+          <div class="method-item">
+            <i class="fas fa-code"></i>
+            <h4>Cloud Computing</h4>
+            <p>Google Earth Engine platform</p>
+          </div>
+          <div class="method-item">
+            <i class="fas fa-map"></i>
+            <h4>GIS Mapping</h4>
+            <p>ArcGIS Pro spatial analysis</p>
+          </div>
+          <div class="method-item">
+            <i class="fas fa-chart-bar"></i>
+            <h4>Change Detection</h4>
+            <p>Post-classification comparison</p>
+          </div>
+          <div class="method-item">
+            <i class="fas fa-binoculars"></i>
+            <h4>Field Validation</h4>
+            <p>Ground truth accuracy assessment</p>
+          </div>
+          <div class="method-item">
+            <i class="fas fa-file-alt"></i>
+            <h4>Policy Analysis</h4>
+            <p>Conservation recommendations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- UNDERGRADUATE -->
+    <div class="section-divider fade-up">
+      <div class="sd-icon"><i class="fas fa-university"></i></div>
+      <h2>Undergraduate Dissertation</h2>
+    </div>
+
+    <div class="bsc-card fade-up delay-1">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+        <span class="badge badge-green">✅ Completed</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted)">BSc Forestry · 2024</span>
+      </div>
+      <h3>Forest Cover Change Detection in Madhupur National Park, Bangladesh (2015–2024)</h3>
+      <p>This dissertation employed multi-date Landsat imagery to detect and quantify forest cover change in Madhupur National Park over a nine-year period. The study applied supervised classification techniques and change detection algorithms to map deforestation, degradation, and recovery patterns. Results revealed significant canopy loss in peripheral buffer zones due to agricultural encroachment and infrastructure development.</p>
+
+      <ul class="findings-list">
+        <li>Landsat 8 & 9 OLI imagery (2015, 2018, 2021, 2024)</li>
+        <li>Maximum likelihood and Random Forest classification</li>
+        <li>Normalized Difference Vegetation Index (NDVI) trend analysis</li>
+        <li>Accuracy assessment with confusion matrix (overall accuracy &gt;90%)</li>
+        <li>Land cover transition matrix and statistical analysis in R</li>
+        <li>Policy recommendations for buffer zone management</li>
+      </ul>
+
+      <div class="thesis-meta" style="margin-top:16px;">
+        <span class="meta-pill"><i class="fas fa-calendar"></i> 2024</span>
+        <span class="meta-pill"><i class="fas fa-map-marker-alt"></i> Tangail, Bangladesh</span>
+        <span class="meta-pill"><i class="fas fa-check-circle" style="color:var(--green)"></i> Distinction</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TOOLS -->
+    <div class="section-divider fade-up">
+      <div class="sd-icon"><i class="fas fa-toolbox"></i></div>
+      <h2>Tools & Software</h2>
+    </div>
+
+    <div class="tools-grid fade-up delay-1">
+      <div class="tool-card"><i class="fas fa-globe"></i><h4>Google Earth Engine</h4><p>Cloud geospatial platform</p></div>
+      <div class="tool-card"><i class="fas fa-layer-group"></i><h4>ArcGIS Pro</h4><p>Advanced spatial analysis</p></div>
+      <div class="tool-card"><i class="fas fa-satellite"></i><h4>QGIS</h4><p>Open-source GIS</p></div>
+      <div class="tool-card"><i class="fas fa-chart-bar"></i><h4>R Language</h4><p>Statistical computing</p></div>
+      <div class="tool-card"><i class="fab fa-python"></i><h4>Python</h4><p>GeoPandas & automation</p></div>
+      <div class="tool-card"><i class="fas fa-map-marked-alt"></i><h4>ENVI / ERDAS</h4><p>Image processing</p></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;" class="fade-up">
+      <a href="contact.html" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Collaborate</a>
+      <a href="about.html" class="btn btn-outline"><i class="fas fa-user"></i> About Me</a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+</style>
+
+<!-- FOOTER LOAD -->
+<div id="footer"></div>
+
+<script>
+fetch('header.html').then(r=>r.text()).then(h=>{ document.getElementById('header').innerHTML=h; });
+fetch('footer.html').then(r=>r.text()).then(f=>{ document.getElementById('footer').innerHTML=f; });
+</script>
+</body>
+</html>

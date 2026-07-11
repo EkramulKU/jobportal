@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Ekramul Haque</title>
+  <meta name="description" content="Contact Ekramul Haque – Environmental Researcher and Journalist. Email, phone, social media and message form.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    .contact-wrap { max-width: 1060px; margin: 0 auto; padding: 56px 5%; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Info column */
+    .info-panel {}
+
+    .info-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      padding: 24px; margin-bottom: 16px;
+    }
+
+    .info-card h2 {
+      font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 4px;
+    }
+
+    .info-card .ic-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    .contact-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0; border-top: 1px solid var(--bg-soft);
+    }
+
+    .ci-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--accent-light); display: flex; align-items: center; justify-content: center;
+      color: var(--accent); font-size: 0.82rem; flex-shrink: 0;
+    }
+
+    .ci-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .ci-value { font-size: 0.82rem; color: var(--text-body); font-weight: 500; }
+    .ci-value a { color: var(--accent); }
+    .ci-value a:hover { text-decoration: underline; }
+
+    /* Social links */
+    .socials-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 20px; }
+    .socials-card h3 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+
+    .social-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 9px 0; border-top: 1px solid var(--bg-soft);
+      text-decoration: none; transition: var(--transition);
+    }
+    .social-link:hover .sl-name { color: var(--accent); }
+
+    .sl-icon {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .si-li { background: #e8f0fb; color: #0a66c2; }
+    .si-fb { background: #e8f0fb; color: #1877f2; }
+    .si-ig { background: #fce8f3; color: #e1306c; }
+    .si-tw { background: var(--bg-soft); color: #000; }
+    .si-th { background: var(--bg-soft); color: #000; }
+    .si-ms { background: #e8f0fb; color: #0078ff; }
+
+    .sl-info { flex: 1; }
+    .sl-platform { font-size: 0.68rem; color: var(--text-muted); }
+    .sl-name { font-size: 0.8rem; font-weight: 600; color: var(--text-body); transition: var(--transition); }
+
+    /* Form */
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 32px; }
+    .form-card h2 { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .form-card .fc-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 26px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-body); margin-bottom: 6px; }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 11px 14px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text-body);
+      font-family: 'Inter', sans-serif; font-size: 0.87rem;
+      outline: none; transition: var(--transition); resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px rgba(29,111,164,0.08);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group textarea { min-height: 130px; }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .form-submit {
+      width: 100%; padding: 13px;
+      background: var(--accent); color: white; border: none;
+      border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: var(--transition); box-shadow: 0 2px 8px rgba(29,111,164,0.25);
+    }
+    .form-submit:hover { background: var(--accent-dark); box-shadow: 0 4px 16px rgba(29,111,164,0.35); transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px;
+      background: var(--navy); color: white;
+      padding: 12px 20px; border-radius: var(--radius-md);
+      font-size: 0.85rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1); z-index: 9999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast i { color: #4ade80; }
+
+    @media (max-width: 860px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="main-wrap">
+  <div class="page-header">
+    <h1>Get in Touch</h1>
+    <p>Open to research collaboration, media inquiries, and academic discussion</p>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="contact-grid">
+
+      <!-- INFO -->
+      <div class="info-panel">
+        <div class="info-card fade-up">
+          <h2>Contact Information</h2>
+          <p class="ic-sub">Reach out via any channel below</p>
+
+          <div class="contact-row">
+            <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+            <div><div class="ci-label">Email</div><div class="ci-value"><a href="mailto:ekramulhaqueku@gmail.com">ekramulhaqueku@gmail.com</a></div></div>
+          </div>
+          <div class="contact-row">
+            <div class="ci-icon"><i class="fas fa-phone"></i></div>
+            <div><div class="ci-label">Phone / WhatsApp</div><div class="ci-value"><a href="tel:+8801782985474">+880 1782 985474</a></div></div>
+          </div>
+          <div class="contact-row">
+            <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><div class="ci-label">Location</div><div class="ci-value">Khulna, Bangladesh</div></div>
+          </div>
+          <div class="contact-row">
+            <div class="ci-icon"><i class="fas fa-university"></i></div>
+            <div><div class="ci-label">Institution</div><div class="ci-value">Khulna University<br><span style="font-weight:400;color:var(--text-muted);font-size:0.75rem">Dept. of Forestry & Wood Technology</span></div></div>
+          </div>
+          <div class="contact-row">
+            <div class="ci-icon"><i class="fab fa-facebook-messenger"></i></div>
+            <div><div class="ci-label">Messenger</div><div class="ci-value"><a href="https://m.me/EkramulKU" target="_blank">m.me/EkramulKU</a></div></div>
+          </div>
+        </div>
+
+        <div class="socials-card fade-up delay-1">
+          <h3>Social Profiles</h3>
+          <a href="https://www.linkedin.com/in/ekramulhaqueku/" target="_blank" class="social-link">
+            <div class="sl-icon si-li"><i class="fab fa-linkedin-in"></i></div>
+            <div class="sl-info"><div class="sl-platform">LinkedIn</div><div class="sl-name">ekramulhaqueku</div></div>
+            <i class="fas fa-arrow-right" style="font-size:0.7rem;color:var(--text-muted)"></i>
+          </a>
+          <a href="https://www.facebook.com/EkramulKU" target="_blank" class="social-link">
+            <div class="sl-icon si-fb"><i class="fab fa-facebook-f"></i></div>
+            <div class="sl-info"><div class="sl-platform">Facebook</div><div class="sl-name">EkramulKU</div></div>
+            <i class="fas fa-arrow-right" style="font-size:0.7rem;color:var(--text-muted)"></i>
+          </a>
+          <a href="https://www.instagram.com/ekramulhaqueku/" target="_blank" class="social-link">
+            <div class="sl-icon si-ig"><i class="fab fa-instagram"></i></div>
+            <div class="sl-info"><div class="sl-platform">Instagram</div><div class="sl-name">ekramulhaqueku</div></div>
+            <i class="fas fa-arrow-right" style="font-size:0.7rem;color:var(--text-muted)"></i>
+          </a>
+          <a href="https://x.com/EkramulHaqueKU" target="_blank" class="social-link">
+            <div class="sl-icon si-tw"><i class="fab fa-x-twitter"></i></div>
+            <div class="sl-info"><div class="sl-platform">X (Twitter)</div><div class="sl-name">EkramulHaqueKU</div></div>
+            <i class="fas fa-arrow-right" style="font-size:0.7rem;color:var(--text-muted)"></i>
+          </a>
+          <a href="https://www.threads.net/@ekramulhaqueku" target="_blank" class="social-link">
+            <div class="sl-icon si-th"><i class="fab fa-threads"></i></div>
+            <div class="sl-info"><div class="sl-platform">Threads</div><div class="sl-name">ekramulhaqueku</div></div>
+            <i class="fas fa-arrow-right" style="font-size:0.7rem;color:var(--text-muted)"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="fade-up delay-1">
+        <div class="form-card">
+          <h2>Send a Message</h2>
+          <p class="fc-sub">I typically reply within 24 hours. For urgent inquiries, please email directly.</p>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name *</label>
+                <input type="text" id="fname" placeholder="First name" required>
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name *</label>
+                <input type="text" id="lname" placeholder="Last name" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select id="subject" required>
+                <option value="" disabled selected>Select a topic...</option>
+                <option>Research Collaboration</option>
+                <option>Media / Journalism</option>
+                <option>Speaking / Event</option>
+                <option>Academic Inquiry</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" placeholder="Write your message here..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit" id="submitBtn">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> Message sent! I'll reply within 24 hours.</div>
+
+<!-- FOOTER LOAD -->
+<div id="footer"></div>
+
+<script>
+fetch('header.html').then(r=>r.text()).then(h=>{ document.getElementById('header').innerHTML=h; });
+fetch('footer.html').then(r=>r.text()).then(f=>{ document.getElementById('footer').innerHTML=f; });
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  btn.disabled = true;
+  setTimeout(function() {
+    var t = document.getElementById('toast'); t.classList.add('show');
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message'; btn.disabled = false;
+    document.getElementById('contactForm').reset();
+    setTimeout(function(){ t.classList.remove('show'); }, 4000);
+  }, 1500);
+});
+</script>
+</body>
+</html>

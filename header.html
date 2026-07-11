@@ -1,0 +1,68 @@
+<!-- SHARED NAVBAR -->
+<nav class="navbar" id="mainNav">
+  <div class="nav-brand">
+    <div class="nav-avatar">
+      <img src="images/profile.jpg" alt="EH" onerror="this.style.display='none';this.parentNode.innerHTML='EH'">
+    </div>
+    <div>
+      <div class="nav-name">Ekramul Haque</div>
+      <div class="nav-sub">Environmental Researcher</div>
+    </div>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" id="nav-home">Home</a>
+    <a href="about.html" id="nav-about">About</a>
+    <a href="research.html" id="nav-research">Research</a>
+    <a href="articles.html" id="nav-articles">Articles</a>
+    <a href="cv.html" id="nav-cv">CV</a>
+    <a href="contact.html" id="nav-contact" class="nav-cta">Contact</a>
+  </div>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<script>
+(function(){
+  var page = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'nav-home','about.html':'nav-about','research.html':'nav-research','articles.html':'nav-articles','cv.html':'nav-cv','contact.html':'nav-contact'};
+  if(map[page]){ var el=document.getElementById(map[page]); if(el) el.classList.add('active'); }
+
+  document.getElementById('navToggle').addEventListener('click', function(){
+    var links = document.getElementById('navLinks');
+    links.classList.toggle('open');
+    var spans = this.querySelectorAll('span');
+    if(links.classList.contains('open')){
+      spans[0].style.cssText='transform:rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity='0';
+      spans[2].style.cssText='transform:rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans[0].style.cssText=''; spans[1].style.opacity=''; spans[2].style.cssText='';
+    }
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){ document.getElementById('navLinks').classList.remove('open'); });
+  });
+
+  // Scroll observer for fade-up elements
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.1});
+  setTimeout(function(){
+    document.querySelectorAll('.fade-up').forEach(function(el){ obs.observe(el); });
+  }, 100);
+
+  // Skill bars observer
+  var skillObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.style.width = e.target.dataset.width; skillObs.unobserve(e.target); }
+    });
+  }, {threshold:0.3});
+  setTimeout(function(){
+    document.querySelectorAll('.skill-bar-fill').forEach(function(b){ skillObs.observe(b); });
+  }, 200);
+})();
+</script>

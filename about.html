@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | Ekramul Haque</title>
+  <meta name="description" content="Learn about Ekramul Haque – Environmental Researcher, GIS Specialist, and Journalist based in Khulna, Bangladesh.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    .about-layout {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 56px 5%;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Sidebar */
+    .about-sidebar { position: sticky; top: calc(var(--nav-h) + 20px); }
+
+    .sb-profile {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .sb-img {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 14px;
+      border: 3px solid var(--accent-light);
+      box-shadow: 0 4px 12px rgba(29,111,164,0.12);
+    }
+
+    .sb-name { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .sb-role { font-size: 0.72rem; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px; }
+    .sb-divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+    .sb-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 0; border-top: 1px solid var(--bg-soft);
+      font-size: 0.75rem; color: var(--text-secondary); text-align: left;
+    }
+    .sb-row i { color: var(--accent); width: 12px; font-size: 0.7rem; }
+
+    .sb-socials { display: flex; justify-content: center; gap: 6px; margin: 12px 0 4px; }
+
+    .sb-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .sb-card h3 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+
+    /* Education cards */
+    .edu-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: var(--transition);
+    }
+
+    .edu-item:hover { box-shadow: var(--shadow-md); border-color: var(--border-dark); }
+
+    .edu-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .edu-degree { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .edu-inst { font-size: 0.78rem; color: var(--accent); margin-bottom: 2px; }
+    .edu-year { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+    .edu-gpa {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: var(--green-light);
+      color: var(--green);
+      border: 1px solid #b2e0d8;
+      border-radius: 99px;
+    }
+
+    /* Bio text */
+    .bio-text p {
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 16px;
+      font-size: 0.93rem;
+    }
+
+    /* Interest grid */
+    .interest-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .interest-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      color: var(--text-body);
+      transition: var(--transition);
+    }
+
+    .interest-item:hover { background: var(--accent-light); border-color: #b8d9ef; color: var(--accent); }
+    .interest-item i { color: var(--accent); font-size: 0.72rem; width: 12px; }
+
+    @media (max-width: 860px) {
+      .about-layout { grid-template-columns: 1fr; }
+      .about-sidebar { position: static; }
+      .interest-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="main-wrap">
+  <div class="page-header">
+    <h1>About Me</h1>
+    <p>Environmental researcher bridging science, spatial analysis, and journalism</p>
+  </div>
+
+  <div class="about-layout">
+    <!-- SIDEBAR -->
+    <aside class="about-sidebar">
+      <div class="sb-profile">
+        <img src="images/profile.jpg" alt="Ekramul Haque" class="sb-img">
+        <div class="sb-name">Ekramul Haque</div>
+        <div class="sb-role">Environmental Researcher</div>
+        <div class="sb-socials">
+          <a href="https://www.linkedin.com/in/ekramulhaqueku/" target="_blank" class="s-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/EkramulKU" target="_blank" class="s-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/ekramulhaqueku/" target="_blank" class="s-btn"><i class="fab fa-instagram"></i></a>
+          <a href="https://x.com/EkramulHaqueKU" target="_blank" class="s-btn"><i class="fab fa-x-twitter"></i></a>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-row"><i class="fas fa-map-marker-alt"></i> Khulna, Bangladesh</div>
+        <div class="sb-row"><i class="fas fa-envelope"></i> ekramulhaqueku@gmail.com</div>
+        <div class="sb-row"><i class="fas fa-phone"></i> +880 1782 985474</div>
+        <div class="sb-row"><i class="fas fa-university"></i> Khulna University</div>
+      </div>
+
+      <div class="sb-card fade-up">
+        <h3>Technical Skills</h3>
+        <div class="skill-bar">
+          <div class="skill-bar-top"><span>Google Earth Engine</span><span>90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-top"><span>ArcGIS Pro</span><span>88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-top"><span>Remote Sensing</span><span>85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-top"><span>Environmental Journalism</span><span>95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-top"><span>Scientific Writing</span><span>92%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92%"></div></div>
+        </div>
+      </div>
+
+      <div class="sb-card fade-up delay-1">
+        <h3>Languages</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-size:0.8rem">Bengali</span>
+          <div style="display:flex;gap:3px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem">English</span>
+          <div style="display:flex;gap:3px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <!-- Bio -->
+      <div class="section-divider fade-up">
+        <div class="sd-icon"><i class="fas fa-user"></i></div>
+        <h2>Biography</h2>
+      </div>
+
+      <div class="bio-text fade-up delay-1" style="margin-bottom:36px;">
+        <p>Ekramul Haque is an environmental researcher and journalist based in Khulna, Bangladesh. He is currently pursuing a Master of Science in Forestry at Khulna University, where his academic work focuses on land use and land cover dynamics, environmental change, and conservation policy.</p>
+        <p>His ongoing graduate research investigates the spatiotemporal dynamics of land use and land cover in the Sundarbans Ecologically Critical Area (2000–2025), using remote sensing and GIS techniques. Through tools such as Google Earth Engine and ArcGIS Pro, he conducts detailed spatial analysis and develops policy-relevant insights to support sustainable forest management.</p>
+        <p>He completed his Bachelor of Science (Honours) in Forestry from Khulna University, following outstanding academic achievements in both secondary and higher secondary education with GPA 5.00. His undergraduate dissertation focused on forest cover change in Madhupur National Park (2015–2024).</p>
+        <p>Beyond academia, Ekramul is an active environmental journalist who has contributed extensively to national and regional media outlets. His journalistic work translates complex scientific findings into accessible narratives that inform public discourse on climate change, biodiversity loss, and environmental governance.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Education -->
+      <div class="section-divider fade-up">
+        <div class="sd-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h2>Education</h2>
+      </div>
+
+      <div class="edu-item fade-up delay-1">
+        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div>
+          <div class="edu-degree">Master of Science in Forestry <span style="font-weight:400;color:var(--text-muted)">(Ongoing)</span></div>
+          <div class="edu-inst">Khulna University, Khulna, Bangladesh</div>
+          <div class="edu-year">2024 – Present</div>
+          <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
+            <span class="badge badge-blue">Sundarbans ECA</span>
+            <span class="badge badge-blue">LULC Dynamics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-item fade-up delay-2">
+        <div class="edu-icon"><i class="fas fa-university"></i></div>
+        <div>
+          <div class="edu-degree">Bachelor of Science (Honours) in Forestry</div>
+          <div class="edu-inst">Khulna University, Khulna, Bangladesh</div>
+          <div class="edu-year">2019 – 2024</div>
+          <span class="edu-gpa">Distinction</span>
+        </div>
+      </div>
+
+      <div class="edu-item fade-up delay-3">
+        <div class="edu-icon"><i class="fas fa-school"></i></div>
+        <div>
+          <div class="edu-degree">Higher Secondary Certificate (HSC) – Science</div>
+          <div class="edu-year">2018</div>
+          <span class="edu-gpa">GPA 5.00 / 5.00</span>
+        </div>
+      </div>
+
+      <div class="edu-item fade-up delay-4">
+        <div class="edu-icon"><i class="fas fa-book-open"></i></div>
+        <div>
+          <div class="edu-degree">Secondary School Certificate (SSC) – Science</div>
+          <div class="edu-year">2016</div>
+          <span class="edu-gpa">GPA 5.00 / 5.00</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Research Interests -->
+      <div class="section-divider fade-up">
+        <div class="sd-icon"><i class="fas fa-lightbulb"></i></div>
+        <h2>Research Interests</h2>
+      </div>
+
+      <div class="interest-grid fade-up delay-1">
+        <div class="interest-item"><i class="fas fa-tree"></i> Forest Ecology</div>
+        <div class="interest-item"><i class="fas fa-satellite"></i> Remote Sensing</div>
+        <div class="interest-item"><i class="fas fa-globe-asia"></i> GIS Analysis</div>
+        <div class="interest-item"><i class="fas fa-water"></i> Mangrove Systems</div>
+        <div class="interest-item"><i class="fas fa-cloud-sun"></i> Climate Change</div>
+        <div class="interest-item"><i class="fas fa-leaf"></i> Biodiversity</div>
+        <div class="interest-item"><i class="fas fa-newspaper"></i> Science Communication</div>
+        <div class="interest-item"><i class="fas fa-balance-scale"></i> Conservation Policy</div>
+        <div class="interest-item"><i class="fas fa-map"></i> Land Use Change</div>
+        <div class="interest-item"><i class="fas fa-seedling"></i> Habitat Restoration</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap;" class="fade-up">
+        <a href="research.html" class="btn btn-primary"><i class="fas fa-microscope"></i> View Research</a>
+        <a href="cv.html" class="btn btn-outline"><i class="fas fa-file-alt"></i> Download CV</a>
+        <a href="contact.html" class="btn btn-ghost"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- FOOTER LOAD -->
+<div id="footer"></div>
+
+<script>
+fetch('header.html').then(r=>r.text()).then(h=>{ document.getElementById('header').innerHTML=h; });
+fetch('footer.html').then(r=>r.text()).then(f=>{ document.getElementById('footer').innerHTML=f; });
+</script>
+</body>
+</html>

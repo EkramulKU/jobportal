@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV | Ekramul Haque</title>
+  <meta name="description" content="Curriculum Vitae of Ekramul Haque – Environmental Researcher, GIS Specialist, Journalist.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    .cv-wrap { max-width: 1060px; margin: 0 auto; padding: 56px 5%; }
+
+    .cv-header-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 32px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .cv-header-img {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-light);
+      box-shadow: 0 4px 12px rgba(29,111,164,0.12);
+      flex-shrink: 0;
+    }
+
+    .cv-header-info h1 {
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .cv-header-info .cv-tagline {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .cv-contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+    }
+
+    .cv-contact-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.76rem; color: var(--text-secondary);
+    }
+
+    .cv-contact-item i { color: var(--accent); font-size: 0.7rem; width: 12px; }
+
+    .cv-actions { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+
+    /* Two-col layout */
+    .cv-layout {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .cv-sidebar { position: sticky; top: calc(var(--nav-h) + 20px); }
+
+    /* CV Section */
+    .cv-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+
+    .cv-section-header {
+      display: flex; align-items: center; gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-section-header i { color: var(--accent); }
+    .cv-section-header h2 { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600; color: var(--navy); }
+
+    /* Entry */
+    .cv-entry { padding: 14px 0; border-bottom: 1px solid var(--bg-soft); display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+    .cv-entry:last-child { border-bottom: none; padding-bottom: 0; }
+    .cv-entry-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .cv-entry-sub { font-size: 0.78rem; color: var(--accent); margin-bottom: 2px; }
+    .cv-entry-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; }
+    .cv-entry-date { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text-muted); white-space: nowrap; padding-top: 2px; }
+    .cv-gpa { display: inline-block; padding: 2px 8px; font-size: 0.68rem; font-weight: 700; background: var(--green-light); color: var(--green); border: 1px solid #b2e0d8; border-radius: 99px; margin-top: 4px; }
+
+    /* Skills in CV sidebar */
+    .cv-sb-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 18px; margin-bottom: 14px; }
+    .cv-sb-card h3 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+
+    /* Tag cloud */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tcv { padding: 4px 9px; font-size: 0.7rem; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-secondary); font-weight: 500; }
+
+    /* Language dots */
+    .lang-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .lang-name { font-size: 0.78rem; }
+    .lang-dots { display: flex; gap: 3px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+    .dot.f { background: var(--accent); }
+
+    @media (max-width: 860px) {
+      .cv-layout { grid-template-columns: 1fr; }
+      .cv-sidebar { position: static; }
+      .cv-header-card { flex-direction: column; text-align: center; }
+      .cv-contact-grid { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="main-wrap">
+  <div class="page-header">
+    <h1>Curriculum Vitae</h1>
+    <p>Academic and professional background</p>
+  </div>
+
+  <div class="cv-wrap">
+
+    <!-- Header Card -->
+    <div class="cv-header-card fade-up">
+      <img src="images/profile.jpg" alt="Ekramul Haque" class="cv-header-img">
+      <div class="cv-header-info">
+        <h1>Ekramul Haque</h1>
+        <div class="cv-tagline">Environmental Researcher · GIS Specialist · Journalist</div>
+        <div class="cv-contact-grid">
+          <span class="cv-contact-item"><i class="fas fa-envelope"></i> ekramulhaqueku@gmail.com</span>
+          <span class="cv-contact-item"><i class="fas fa-phone"></i> +880 1782 985474</span>
+          <span class="cv-contact-item"><i class="fas fa-map-marker-alt"></i> Khulna, Bangladesh</span>
+          <a href="https://www.linkedin.com/in/ekramulhaqueku/" target="_blank" class="cv-contact-item" style="color:var(--accent)"><i class="fab fa-linkedin-in"></i> ekramulhaqueku</a>
+          <a href="https://ekramulhaque.live" target="_blank" class="cv-contact-item" style="color:var(--accent)"><i class="fas fa-globe"></i> ekramulhaque.live</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-actions fade-up delay-1">
+      <a href="images/cv.pdf" download class="btn btn-primary"><i class="fas fa-download"></i> Download PDF</a>
+      <a href="contact.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Request Full CV</a>
+    </div>
+
+    <div class="cv-layout">
+      <!-- MAIN -->
+      <main>
+        <!-- Education -->
+        <div class="cv-section fade-up">
+          <div class="cv-section-header"><i class="fas fa-graduation-cap"></i><h2>Education</h2></div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Master of Science (MSc) in Forestry</div>
+              <div class="cv-entry-sub">Khulna University, Bangladesh</div>
+              <div class="cv-entry-desc">Thesis: Spatiotemporal Dynamics of LULC in the Sundarbans ECA (2000–2025)</div>
+            </div>
+            <div class="cv-entry-date">2024 – Present</div>
+          </div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Bachelor of Science (Honours) in Forestry</div>
+              <div class="cv-entry-sub">Khulna University, Bangladesh</div>
+              <div class="cv-entry-desc">Dissertation: Forest Cover Change in Madhupur National Park (2015–2024)</div>
+              <span class="cv-gpa">Distinction</span>
+            </div>
+            <div class="cv-entry-date">2019 – 2024</div>
+          </div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Higher Secondary Certificate (HSC) – Science</div>
+              <span class="cv-gpa">GPA 5.00 / 5.00</span>
+            </div>
+            <div class="cv-entry-date">2018</div>
+          </div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Secondary School Certificate (SSC) – Science</div>
+              <span class="cv-gpa">GPA 5.00 / 5.00</span>
+            </div>
+            <div class="cv-entry-date">2016</div>
+          </div>
+        </div>
+
+        <!-- Research -->
+        <div class="cv-section fade-up delay-1">
+          <div class="cv-section-header"><i class="fas fa-microscope"></i><h2>Research Experience</h2></div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Graduate Researcher</div>
+              <div class="cv-entry-sub">Dept. of Forestry & Wood Technology, Khulna University</div>
+              <div class="cv-entry-desc">LULC analysis of Sundarbans ECA using Google Earth Engine, Landsat & Sentinel-2. Developing policy-relevant insights for sustainable mangrove management.</div>
+            </div>
+            <div class="cv-entry-date">2024 – Present</div>
+          </div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Undergraduate Researcher (BSc Dissertation)</div>
+              <div class="cv-entry-sub">Dept. of Forestry & Wood Technology, Khulna University</div>
+              <div class="cv-entry-desc">Supervised classification and NDVI analysis for forest cover change detection in Madhupur National Park. Overall accuracy &gt;90%.</div>
+            </div>
+            <div class="cv-entry-date">2023 – 2024</div>
+          </div>
+        </div>
+
+        <!-- Journalism -->
+        <div class="cv-section fade-up delay-2">
+          <div class="cv-section-header"><i class="fas fa-newspaper"></i><h2>Journalism & Media</h2></div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Environmental Journalist</div>
+              <div class="cv-entry-sub">National & Regional Media Outlets, Bangladesh</div>
+              <div class="cv-entry-desc">Published 25+ articles on environmental science, climate change, campus news, and national affairs. Translates complex science into accessible public narratives.</div>
+            </div>
+            <div class="cv-entry-date">2020 – Present</div>
+          </div>
+          <div class="cv-entry">
+            <div>
+              <div class="cv-entry-title">Campus Correspondent</div>
+              <div class="cv-entry-sub">Khulna University Beat</div>
+              <div class="cv-entry-desc">Regular coverage of academic events, research achievements, environmental campaigns, and student affairs.</div>
+            </div>
+            <div class="cv-entry-date">2020 – Present</div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="cv-section fade-up delay-3">
+          <div class="cv-section-header"><i class="fas fa-cogs"></i><h2>Technical Skills</h2></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div>
+              <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">GIS & Remote Sensing</div>
+              <div class="tag-cloud">
+                <span class="tcv">Google Earth Engine</span>
+                <span class="tcv">ArcGIS Pro</span>
+                <span class="tcv">QGIS</span>
+                <span class="tcv">ENVI</span>
+                <span class="tcv">ERDAS Imagine</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Data & Programming</div>
+              <div class="tag-cloud">
+                <span class="tcv">R Language</span>
+                <span class="tcv">Python</span>
+                <span class="tcv">GeoPandas</span>
+                <span class="tcv">JavaScript (GEE)</span>
+              </div>
+            </div>
+            <div style="margin-top:12px;">
+              <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Satellite Imagery</div>
+              <div class="tag-cloud">
+                <span class="tcv">Landsat 5/7/8/9</span>
+                <span class="tcv">Sentinel-2</span>
+                <span class="tcv">NDVI / EVI</span>
+                <span class="tcv">LULC Classification</span>
+              </div>
+            </div>
+            <div style="margin-top:12px;">
+              <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Communication</div>
+              <div class="tag-cloud">
+                <span class="tcv">Scientific Writing</span>
+                <span class="tcv">Environmental Journalism</span>
+                <span class="tcv">Data Visualization</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- SIDEBAR -->
+      <aside class="cv-sidebar">
+        <div class="cv-sb-card fade-up">
+          <h3>Technical Skills</h3>
+          <div class="skill-bar">
+            <div class="skill-bar-top"><span>Google Earth Engine</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar-top"><span>ArcGIS Pro</span><span>88%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar-top"><span>Remote Sensing</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar-top"><span>Journalism</span><span>95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95%"></div></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar-top"><span>R / Python</span><span>70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70%"></div></div>
+          </div>
+        </div>
+
+        <div class="cv-sb-card fade-up delay-1">
+          <h3>Languages</h3>
+          <div class="lang-item">
+            <span class="lang-name">Bengali (Native)</span>
+            <div class="lang-dots">
+              <div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">English</span>
+            <div class="lang-dots">
+              <div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-sb-card fade-up delay-2">
+          <h3>Research Interests</h3>
+          <div class="tag-cloud">
+            <span class="tcv">Mangrove Ecology</span>
+            <span class="tcv">LULC Change</span>
+            <span class="tcv">Climate Adaptation</span>
+            <span class="tcv">Biodiversity</span>
+            <span class="tcv">Conservation Policy</span>
+            <span class="tcv">Spatial Statistics</span>
+          </div>
+        </div>
+
+        <div class="cv-sb-card fade-up delay-3">
+          <h3>Connect</h3>
+          <div class="social-row">
+            <a href="https://www.linkedin.com/in/ekramulhaqueku/" target="_blank" class="s-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/EkramulKU" target="_blank" class="s-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/ekramulhaqueku/" target="_blank" class="s-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/EkramulHaqueKU" target="_blank" class="s-btn"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER LOAD -->
+<div id="footer"></div>
+
+<script>
+fetch('header.html').then(r=>r.text()).then(h=>{ document.getElementById('header').innerHTML=h; });
+fetch('footer.html').then(r=>r.text()).then(f=>{ document.getElementById('footer').innerHTML=f; });
+</script>
+</body>
+</html>

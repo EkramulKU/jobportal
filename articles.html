@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles & Journalism | Ekramul Haque</title>
+  <meta name="description" content="Published news articles and environmental journalism by Ekramul Haque.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    .articles-wrap { max-width: 1060px; margin: 0 auto; padding: 56px 5%; }
+
+    /* Filter */
+    .filter-wrap { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 20px 24px; margin-bottom: 28px; }
+
+    .search-box { position: relative; margin-bottom: 14px; }
+    .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; }
+    #search {
+      width: 100%; padding: 11px 14px 11px 40px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text-body);
+      font-size: 0.88rem; font-family: 'Inter', sans-serif; outline: none;
+      transition: var(--transition);
+    }
+    #search:focus { border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px rgba(29,111,164,0.08); }
+    #search::placeholder { color: var(--text-muted); }
+
+    .cats { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-btn {
+      padding: 5px 14px; font-size: 0.75rem; font-weight: 600; border-radius: 99px;
+      background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-secondary);
+      cursor: pointer; transition: var(--transition);
+    }
+    .cat-btn:hover, .cat-btn.active { background: var(--accent-light); border-color: #b8d9ef; color: var(--accent); }
+
+    .result-info { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 20px; }
+    .result-info strong { color: var(--accent); }
+
+    /* Articles grid */
+    .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
+
+    .article-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm); overflow: hidden; cursor: pointer; transition: var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .article-card:hover { box-shadow: var(--shadow-hover); border-color: var(--border-dark); transform: translateY(-4px); }
+
+    .article-thumb {
+      height: 180px; background: var(--bg-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; position: relative; overflow: hidden;
+    }
+    .article-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    .cat-badge {
+      position: absolute; top: 10px; left: 10px;
+      padding: 3px 10px; border-radius: 99px;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .b-env { background: rgba(22,160,133,0.9); color: white; }
+    .b-cam { background: rgba(29,111,164,0.9); color: white; }
+    .b-feat { background: rgba(124,58,237,0.9); color: white; }
+    .b-nat { background: rgba(220,38,38,0.9); color: white; }
+    .b-khu { background: rgba(234,88,12,0.9); color: white; }
+    .b-def { background: rgba(107,114,128,0.85); color: white; }
+
+    .article-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+
+    .article-title {
+      font-family: 'SolaimanLipi', 'Inter', sans-serif;
+      font-size: 0.9rem; font-weight: 600; color: var(--navy);
+      line-height: 1.5; margin-bottom: 8px; flex: 1;
+    }
+
+    .article-excerpt {
+      font-family: 'SolaimanLipi', 'Inter', sans-serif;
+      font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .article-footer { display: flex; justify-content: space-between; align-items: center; }
+    .article-date { font-size: 0.7rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+    .article-read { font-size: 0.72rem; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 4px; }
+
+    .no-results { grid-column: 1/-1; text-align: center; padding: 60px 20px; }
+    .no-results i { font-size: 2rem; color: var(--border); margin-bottom: 12px; display: block; }
+    .no-results p { color: var(--text-muted); font-size: 0.88rem; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px); z-index: 9999;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);
+      max-width: 700px; width: 100%; max-height: 88vh; overflow-y: auto;
+      transform: translateY(16px) scale(0.98); transition: transform 0.25s ease; position: relative;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); z-index: 10;
+      transition: var(--transition);
+    }
+    .modal-close:hover { background: var(--bg); color: var(--navy); }
+
+    .modal-content { padding: 28px 32px; }
+    .modal-content h2 { font-family: 'SolaimanLipi','Inter',sans-serif; font-size: 1.2rem; color: var(--navy); line-height: 1.5; margin-bottom: 10px; }
+    .modal-date { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono',monospace; margin-bottom: 20px; }
+    .modal-text { font-family: 'SolaimanLipi','Inter',sans-serif; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.85; }
+    .modal-divider { height: 1px; background: var(--border); margin: 20px 0; }
+  </style>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="main-wrap">
+  <div class="page-header">
+    <h1>Published Articles</h1>
+    <p>Environmental journalism, campus reporting, and national news coverage</p>
+  </div>
+
+  <div class="articles-wrap">
+    <div class="filter-wrap">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" placeholder="Search articles by title or content...">
+      </div>
+      <div class="cats">
+        <button class="cat-btn active" data-cat="all">All</button>
+        <button class="cat-btn" data-cat="environment">🌿 Environment</button>
+        <button class="cat-btn" data-cat="campus">🎓 Campus</button>
+        <button class="cat-btn" data-cat="khulna">🏙️ Khulna</button>
+        <button class="cat-btn" data-cat="country">🇧🇩 National</button>
+        <button class="cat-btn" data-cat="features">✨ Features</button>
+      </div>
+    </div>
+
+    <div class="result-info">Showing <strong id="countDisplay">0</strong> articles</div>
+    <div class="articles-grid" id="articlesGrid"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<!-- FOOTER LOAD -->
+<div id="footer"></div>
+
+<script>
+fetch('header.html').then(r=>r.text()).then(h=>{ document.getElementById('header').innerHTML=h; });
+fetch('footer.html').then(r=>r.text()).then(f=>{ document.getElementById('footer').innerHTML=f; });
+
+var articles = [
+  { id:1, category:'environment', title:'সুন্দরবনের উপকূলে বাড়ছে লবণাক্ততা: পরিবেশবিদদের উদ্বেগ', excerpt:'সুন্দরবন সংলগ্ন উপকূলীয় এলাকায় লবণাক্ততার মাত্রা উদ্বেগজনকভাবে বাড়ছে।', text:'সুন্দরবন সংলগ্ন উপকূলীয় এলাকায় লবণাক্ততার মাত্রা উদ্বেগজনকভাবে বাড়ছে। সাম্প্রতিক গবেষণায় দেখা গেছে, জলবায়ু পরিবর্তন ও শিল্প দূষণ এর মূল কারণ। স্থানীয় কৃষক ও জেলেরা এই পরিবর্তনের সরাসরি শিকার হচ্ছেন। পরিবেশবিদরা দ্রুত পদক্ষেপ নেওয়ার দাবি জানিয়েছেন।', date:'২০২৪', icon:'🌊' },
+  { id:2, category:'environment', title:'মধুপুর জাতীয় উদ্যানে বনাঞ্চল হ্রাস: স্যাটেলাইট চিত্রে ভয়াবহ চিত্র', excerpt:'ল্যান্ডস্যাট স্যাটেলাইট চিত্র বিশ্লেষণে দেখা গেছে, মধুপুর জাতীয় উদ্যানে গত নয় বছরে বনাঞ্চল হ্রাস পেয়েছে।', text:'ল্যান্ডস্যাট স্যাটেলাইট চিত্র বিশ্লেষণে দেখা গেছে মধুপুর জাতীয় উদ্যানে গত নয় বছরে উল্লেখযোগ্য বনাঞ্চল হ্রাস পেয়েছে। কৃষি জমির প্রসার, অবৈধ বসতি স্থাপন এবং অবকাঠামো উন্নয়ন এই বনাঞ্চল হ্রাসের মূল কারণ।', date:'২০২৪', icon:'🌳' },
+  { id:3, category:'campus', title:'খুলনা বিশ্ববিদ্যালয়ে পরিবেশ দিবস উদযাপন', excerpt:'বিশ্ব পরিবেশ দিবস উপলক্ষে খুলনা বিশ্ববিদ্যালয়ে বিভিন্ন কর্মসূচি পালিত হয়েছে।', text:'বিশ্ব পরিবেশ দিবস উপলক্ষে খুলনা বিশ্ববিদ্যালয়ে বিভিন্ন কর্মসূচি পালিত হয়েছে। বৃক্ষরোপণ অভিযান, সচেতনতামূলক র‍্যালি এবং বিশেষ আলোচনা সভার আয়োজন করা হয়। বনবিদ্যা বিভাগের শিক্ষার্থীরা সক্রিয় ভূমিকা রেখেছেন।', date:'২০২৩', icon:'🎓' },
+  { id:4, category:'campus', title:'বনবিদ্যা বিভাগের গবেষণা সাফল্য: আন্তর্জাতিক স্বীকৃতি', excerpt:'খুলনা বিশ্ববিদ্যালয়ের বনবিদ্যা বিভাগের গবেষণা আন্তর্জাতিক পর্যায়ে স্বীকৃতি পেয়েছে।', text:'খুলনা বিশ্ববিদ্যালয়ের বনবিদ্যা বিভাগের গবেষকরা সুন্দরবনের জলবায়ু পরিবর্তনের প্রভাব নিয়ে আন্তর্জাতিক মানের গবেষণা পরিচালনা করেছেন। এই গবেষণা একটি প্রভাবশালী আন্তর্জাতিক জার্নালে প্রকাশিত হয়েছে।', date:'২০২৩', icon:'🏅' },
+  { id:5, category:'khulna', title:'খুলনায় শিল্প দূষণ: পশুর নদীর পরিবেশ বিপর্যয়', excerpt:'খুলনার শিল্পকারখানা থেকে বর্জ্য নির্গমনের কারণে পশুর নদীতে পরিবেশ বিপর্যয় দেখা দিয়েছে।', text:'খুলনার শিল্পকারখানা থেকে অপরিশোধিত বর্জ্য নির্গমনের কারণে পশুর নদীতে মারাত্মক পরিবেশ বিপর্যয় দেখা দিয়েছে। মাছের মড়ক ও জলজ প্রাণীর বিলুপ্তির আশঙ্কা দেখা দিয়েছে। পরিবেশ অধিদপ্তর বিষয়টি তদন্ত করছে।', date:'২০২৩', icon:'🏭' },
+  { id:6, category:'country', title:'বাংলাদেশে জলবায়ু পরিবর্তনের প্রভাব: গবেষণা রিপোর্ট', excerpt:'নতুন গবেষণা রিপোর্টে বাংলাদেশে জলবায়ু পরিবর্তনের প্রভাব বিস্তারিত তুলে ধরা হয়েছে।', text:'সম্প্রতি প্রকাশিত একটি গবেষণা রিপোর্টে বাংলাদেশে জলবায়ু পরিবর্তনের সুদূরপ্রসারী প্রভাব বিস্তারিতভাবে তুলে ধরা হয়েছে। রিপোর্টে বলা হয়েছে, ২০৫০ সালের মধ্যে বাংলাদেশের উপকূলীয় এলাকার একটি উল্লেখযোগ্য অংশ সমুদ্রে বিলীন হওয়ার ঝুঁকিতে রয়েছে।', date:'২০২৪', icon:'🌏' },
+  { id:7, category:'features', title:'GIS ও রিমোট সেন্সিং: পরিবেশ গবেষণার নতুন দিগন্ত', excerpt:'আধুনিক GIS এবং রিমোট সেন্সিং প্রযুক্তি কীভাবে বাংলাদেশের পরিবেশ গবেষণায় বিপ্লব এনেছে।', text:'আধুনিক GIS এবং রিমোট সেন্সিং প্রযুক্তি বাংলাদেশের পরিবেশ গবেষণায় এক নতুন মাত্রা যোগ করেছে। Google Earth Engine এর মতো প্ল্যাটফর্ম ব্যবহার করে গবেষকরা এখন বিশাল এলাকার ভূমি ব্যবহার পরিবর্তন রিয়েল টাইমে পর্যবেক্ষণ করতে পারছেন।', date:'২০২৪', icon:'🛰️' },
+  { id:8, category:'environment', title:'সুন্দরবনের বাঘ সংরক্ষণ: সাফল্য ও চ্যালেঞ্জ', excerpt:'সুন্দরবনে বাঘ সংরক্ষণ প্রকল্পে উল্লেখযোগ্য সাফল্য পাওয়া গেছে।', text:'সুন্দরবনে বাঘ সংরক্ষণ প্রকল্পে গত কয়েক বছরে উল্লেখযোগ্য সাফল্য পাওয়া গেছে। ক্যামেরা ট্র্যাপিং পদ্ধতিতে সর্বশেষ জরিপে বাঘের সংখ্যা বৃদ্ধির তথ্য পাওয়া গেছে। তবে মানব-বাঘ দ্বন্দ্ব এখনও একটি বড় সমস্যা হিসেবে রয়ে গেছে।', date:'২০২৩', icon:'🐯' },
+  { id:9, category:'khulna', title:'খুলনার সুন্দরবন এলাকায় ঘূর্ণিঝড় পরবর্তী পুনর্বাসন', excerpt:'সাম্প্রতিক ঘূর্ণিঝড়ে ক্ষতিগ্রস্ত খুলনা জেলার সুন্দরবন সংলগ্ন এলাকায় পুনর্বাসন কার্যক্রম চলছে।', text:'সাম্প্রতিক ঘূর্ণিঝড়ে ক্ষতিগ্রস্ত খুলনা জেলার সুন্দরবন সংলগ্ন এলাকায় পুনর্বাসন কার্যক্রম চলছে। সরকারি ও বেসরকারি সংস্থাগুলো মিলে হাজার হাজার পরিবারকে সহায়তা দিচ্ছে।', date:'২০২৩', icon:'🌀' }
+];
+
+var currentCat = 'all';
+var grid = document.getElementById('articlesGrid');
+var countEl = document.getElementById('countDisplay');
+
+var catBadge = { environment:'b-env', campus:'b-cam', features:'b-feat', country:'b-nat', khulna:'b-khu' };
+var catLabel = { environment:'Environment', campus:'Campus', features:'Features', country:'National', khulna:'Khulna' };
+
+function renderArticles(list) {
+  countEl.textContent = list.length;
+  if (!list.length) {
+    grid.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>কোনো আর্টিকেল পাওয়া যায়নি।</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(function(a, i) {
+    return '<div class="article-card fade-up" style="animation-delay:'+(i*0.05)+'s" data-id="'+a.id+'">' +
+      '<div class="article-thumb">' +
+        (a.img ? '<img src="'+a.img+'" alt="">' : a.icon) +
+        '<span class="cat-badge '+(catBadge[a.category]||'b-def')+'">'+catLabel[a.category]+'</span>' +
+      '</div>' +
+      '<div class="article-body">' +
+        '<div class="article-title">'+a.title+'</div>' +
+        '<div class="article-excerpt">'+a.excerpt+'</div>' +
+        '<div class="article-footer">' +
+          '<span class="article-date">'+a.date+'</span>' +
+          '<span class="article-read">পড়ুন <i class="fas fa-arrow-right"></i></span>' +
+        '</div>' +
+      '</div></div>';
+  }).join('');
+
+  grid.querySelectorAll('.article-card').forEach(function(card) {
+    card.addEventListener('click', function() { openModal(+this.dataset.id); });
+  });
+}
+
+function filterArticles() {
+  var q = document.getElementById('search').value.toLowerCase();
+  return articles.filter(function(a) {
+    return (currentCat === 'all' || a.category === currentCat) &&
+           (!q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q));
+  });
+}
+
+document.querySelectorAll('.cat-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+    currentCat = this.dataset.cat;
+    renderArticles(filterArticles());
+  });
+});
+
+document.getElementById('search').addEventListener('input', function() { renderArticles(filterArticles()); });
+
+function openModal(id) {
+  var a = articles.find(function(x){ return x.id===id; });
+  if(!a) return;
+  document.getElementById('modalContent').innerHTML =
+    '<div style="margin-bottom:12px;"><span class="cat-badge '+(catBadge[a.category]||'b-def')+'" style="position:static;font-size:0.68rem;padding:3px 10px;border-radius:99px;">'+catLabel[a.category]+'</span></div>' +
+    '<h2>'+a.title+'</h2>' +
+    '<div class="modal-date">'+a.date+'</div>' +
+    '<div class="modal-divider"></div>' +
+    '<div class="modal-text">'+a.text+'</div>';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+renderArticles(articles);
+</script>
+</body>
+</html>
