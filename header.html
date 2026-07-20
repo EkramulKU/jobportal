@@ -16,6 +16,7 @@
     <a href="research.html" id="nav-research">Research</a>
     <a href="articles.html" id="nav-articles">Articles</a>
     <a href="cv.html" id="nav-cv">CV</a>
+    <a href="job-circulars.html" id="nav-jobs">Jobs</a>
     <a href="contact.html" id="nav-contact" class="nav-cta">Contact</a>
   </div>
 
@@ -27,7 +28,7 @@
 <script>
 (function(){
   var page = location.pathname.split('/').pop() || 'index.html';
-  var map = {'index.html':'nav-home','about.html':'nav-about','research.html':'nav-research','articles.html':'nav-articles','cv.html':'nav-cv','contact.html':'nav-contact'};
+  var map = {'index.html':'nav-home','about.html':'nav-about','research.html':'nav-research','articles.html':'nav-articles','cv.html':'nav-cv','job-circulars.html':'nav-jobs','contact.html':'nav-contact'};
   if(map[page]){ var el=document.getElementById(map[page]); if(el) el.classList.add('active'); }
 
   document.getElementById('navToggle').addEventListener('click', function(){

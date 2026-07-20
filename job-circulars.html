@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Circulars 2026 | Ekramul Haque</title>
+  <meta name="description" content="বাংলাদেশ সরকারি ও বেসরকারি চাকরির বিজ্ঞপ্তি ২০২৬ — সর্বশেষ আপডেট">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Page-level overrides ── */
+    :root {
+      --accent:   #4f8ef7;
+      --accent2:  #7c3aed;
+      --green:    #10b981;
+      --red:      #ef4444;
+      --amber:    #f59e0b;
+      --card-bg:  rgba(255,255,255,0.04);
+      --border:   rgba(255,255,255,0.09);
+      --row-hover:rgba(79,142,247,0.07);
+    }
+
+    /* ── Hero ── */
+    .jc-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .jc-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.18), transparent);
+      pointer-events: none;
+    }
+    .jc-hero h1 {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #e2e8f0, #4f8ef7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .jc-hero p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      font-family: 'Noto Serif Bengali', serif;
+    }
+    .jc-badge {
+      display: inline-block;
+      background: rgba(79,142,247,0.15);
+      border: 1px solid rgba(79,142,247,0.35);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      padding: 4px 14px;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.05em;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Controls bar ── */
+    .jc-controls {
+      max-width: 1200px;
+      margin: 2.5rem auto 1.5rem;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .jc-search {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
+    .jc-search input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.6rem 1rem 0.6rem 2.6rem;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      font-family: 'Noto Serif Bengali', serif;
+      transition: border 0.2s;
+    }
+    .jc-search input:focus { outline: none; border-color: var(--accent); }
+    .jc-search svg { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+    .jc-filter-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      padding: 0.5rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(79,142,247,0.15);
+      border-color: rgba(79,142,247,0.5);
+      color: #93c5fd;
+    }
+    .jc-count {
+      font-size: 0.82rem;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      margin-left: auto;
+    }
+
+    /* ── Table wrapper ── */
+    .jc-wrap {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Source section header ── */
+    .source-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 2.5rem 0 1rem;
+    }
+    .source-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .source-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+    }
+    .source-header a {
+      font-size: 0.78rem;
+      color: #64748b;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .source-header a:hover { color: var(--accent); }
+    .source-count-badge {
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.06);
+      color: #94a3b8;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Table ── */
+    .jc-table-wrapper {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,0.6);
+      backdrop-filter: blur(12px);
+    }
+    .jc-table { width: 100%; border-collapse: collapse; }
+    .jc-table thead th {
+      background: rgba(255,255,255,0.04);
+      padding: 0.75rem 1.1rem;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .jc-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .jc-table tbody tr:last-child { border-bottom: none; }
+    .jc-table tbody tr:hover { background: var(--row-hover); }
+    .jc-table tbody tr.hidden { display: none; }
+    .jc-table td {
+      padding: 0.85rem 1.1rem;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      vertical-align: middle;
+      font-family: 'Noto Serif Bengali', serif;
+    }
+    .jc-table td:nth-child(2) { /* posts */
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+    /* serial number */
+    .jc-table td:first-child {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: #475569;
+      width: 36px;
+      text-align: center;
+    }
+
+    /* Deadline badge */
+    .dl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.76rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    .dl-active { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+    .dl-urgent { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .dl-expired{ background: rgba(239,68,68,0.1);  color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .dl-none   { color: #475569; font-size: 0.76rem; font-family: 'Inter', sans-serif; }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 0.5rem; align-items: center; }
+    .btn-detail, .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-detail {
+      background: rgba(79,142,247,0.1);
+      color: #93c5fd;
+      border: 1px solid rgba(79,142,247,0.25);
+    }
+    .btn-detail:hover { background: rgba(79,142,247,0.22); }
+    .btn-pdf {
+      background: rgba(16,185,129,0.1);
+      color: #6ee7b7;
+      border: 1px solid rgba(16,185,129,0.25);
+    }
+    .btn-pdf:hover { background: rgba(16,185,129,0.22); }
+
+    /* org name emphasis */
+    .org-name { color: #e2e8f0; font-weight: 500; display: block; }
+    .org-sub   { font-size: 0.78rem; color: #64748b; font-family: 'Inter', sans-serif; margin-top: 2px; }
+
+    /* Updated notice */
+    .updated-notice {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #475569;
+      font-family: 'Inter', sans-serif;
+      margin-top: 1.5rem;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #475569;
+      font-family: 'Noto Serif Bengali', serif;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .jc-table thead th:nth-child(2),
+      .jc-table td:nth-child(2) { display: none; }
+      .btn-row { flex-direction: column; gap: 0.3rem; }
+    }
+    @media (max-width: 540px) {
+      .jc-table thead th:nth-child(3),
+      .jc-table td:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <!-- Hero -->
+  <section class="jc-hero">
+    <div class="jc-badge">🇧🇩 Job Circular Board 2026</div>
+    <h1>চাকরির বিজ্ঞপ্তি ২০২৬</h1>
+    <p>বাংলাদেশের শীর্ষ সরকারি ও বেসরকারি চাকরির সর্বশেষ তালিকা</p>
+  </section>
+
+  <!-- Controls -->
+  <div class="jc-controls">
+    <div class="jc-search">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="সার্কুলার খুঁজুন..." oninput="filterTable()">
+    </div>
+    <div class="jc-filter-btns">
+      <button class="filter-btn active" data-src="all" onclick="setSource(this,'all')">সব</button>
+      <button class="filter-btn" data-src="biddabari" onclick="setSource(this,'biddabari')">Biddabari</button>
+      <button class="filter-btn" data-src="safollo" onclick="setSource(this,'safollo')">Safollo</button>
+      <button class="filter-btn" data-src="bcsconfidence" onclick="setSource(this,'bcsconfidence')">BCS Confidence</button>
+    </div>
+    <span class="jc-count" id="countBadge">মোট: <strong id="totalCount">0</strong> টি</span>
+  </div>
+
+  <div class="jc-wrap">
+    <div id="emptyState" class="empty-state">কোনো সার্কুলার পাওয়া যায়নি।</div>
+
+    <!-- ════════════════════════════════════════
+         SOURCE 1: BIDDABARI
+         ════════════════════════════════════════ -->
+    <div class="source-header" data-source-group="biddabari">
+      <div class="source-dot" style="background:#4f8ef7"></div>
+      <h2>Biddabari</h2>
+      <span class="source-count-badge">৩৮ টি সার্কুলার (Pages 1–3)</span>
+      <a href="https://biddabari.com/job-circular" target="_blank">biddabari.com ↗</a>
+    </div>
+    <div class="jc-table-wrapper" data-source-group="biddabari">
+      <table class="jc-table" id="tbl-biddabari">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>পদ সংখ্যা</th>
+            <th>সংস্থার নাম</th>
+            <th>আবেদনের শেষ তারিখ</th>
+            <th>লিংক ও PDF</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-biddabari"></tbody>
+      </table>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SOURCE 2: SAFOLLO
+         ════════════════════════════════════════ -->
+    <div class="source-header" data-source-group="safollo">
+      <div class="source-dot" style="background:#10b981"></div>
+      <h2>Safollo Academy</h2>
+      <span class="source-count-badge">৩০ টি সার্কুলার</span>
+      <a href="https://www.safollo.ac/job-circular" target="_blank">safollo.ac ↗</a>
+    </div>
+    <div class="jc-table-wrapper" data-source-group="safollo">
+      <table class="jc-table" id="tbl-safollo">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>পদ সংখ্যা</th>
+            <th>সংস্থার নাম</th>
+            <th>আবেদনের শেষ তারিখ</th>
+            <th>লিংক ও PDF</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-safollo"></tbody>
+      </table>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SOURCE 3: BCS CONFIDENCE
+         ════════════════════════════════════════ -->
+    <div class="source-header" data-source-group="bcsconfidence">
+      <div class="source-dot" style="background:#a78bfa"></div>
+      <h2>BCS Confidence</h2>
+      <span class="source-count-badge">১০ টি সার্কুলার</span>
+      <a href="https://www.bcsconfidence.online/job-news" target="_blank">bcsconfidence.online ↗</a>
+    </div>
+    <div class="jc-table-wrapper" data-source-group="bcsconfidence">
+      <table class="jc-table" id="tbl-bcsconfidence">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>প্রকাশের তারিখ</th>
+            <th>শিরোনাম</th>
+            <th>বিস্তারিত</th>
+            <th>সূত্র</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-bcsconfidence"></tbody>
+      </table>
+    </div>
+
+    <p class="updated-notice">সর্বশেষ আপডেট: ২০ জুলাই ২০২৬ | উৎস: Biddabari, Safollo Academy, BCS Confidence</p>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+  // ─── DATA ─────────────────────────────────────────────────────────────────
+
+  // BIDDABARI DATA (Pages 1-3)
+  const biddabariData = [
+    // PAGE 1
+    {posts:'৮৬', org:'DMLC – সামরিক ভূমি ও ক্যান্টনমেন্ট অধিদপ্তর', deadline:'31 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/dmlc-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/samrik-vuumi-oo-kzantnment-odhidptr-1778507553-7111.pdf'},
+    {posts:'—', org:'Titas Gas (TGTDPLC) – তিতাস গ্যাস ট্রান্সমিশন', deadline:'21 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/titas-gas-tgtdplc-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/titas-1-1784458172-7332.pdf'},
+    {posts:'—', org:'RDCD – পল্লী উন্নয়ন ও সমবায় বিভাগ', deadline:'28 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/rdcd-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/20260630-1784205872-4252.pdf'},
+    {posts:'১৭৪', org:'BGB – বর্ডার গার্ড বাংলাদেশ', deadline:'28 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/bgb-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/bgb-1-1784180374-3429.pdf'},
+    {posts:'৩৩', org:'Dept. of Architecture – স্থাপত্য অধিদপ্তর', deadline:'06 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/department-of-architecture-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/217622d8-5039-4d97-b47e-1b0dc9718337-1784112137-1278.pdf'},
+    {posts:'৫৩', org:'ERPLC – ইস্টার্ণ রিফাইনারী পিএলসি', deadline:'27 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/erplc-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/errrrrrrr-1784037362-9326.pdf'},
+    {posts:'—', org:'Khagrachari Nrigostir Institute – খাগড়াছড়ি ক্ষুদ্র নৃগোষ্ঠীর সাংস্কৃতিক ইনস্টিটিউট', deadline:'04 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/khagrachari-khudra-nrigostir-sangskritik-institute-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/kshudr-nrri-goshtheer-sangskrritik-institiut-khagrachori-1783950040-4020.pdf'},
+    {posts:'৫৭৫', org:'CGA – হিসাব মহানিয়ন্ত্রক এর কার্যালয়', deadline:'27 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/cga-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/lhisab-mhanizntrk-1783864738-9229.pdf'},
+    {posts:'—', org:'GPFPLC – ঘোড়াশাল পলাশ ফার্টিলাইজার পিএলসি', deadline:'13 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/ghorashal-polash-fertilizer-plc-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/7a323d4f-6260-43ff-ac05-0bfb2d24c623-1783788589-2787.pdf'},
+    {posts:'৫৭', org:'RDA Jamalpur – পল্লী উন্নয়ন একাডেমী জামালপুর', deadline:'08 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/rural-development-academy-jamalpur-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/pllee-unnyn-jamal-pur-1783605830-1492.pdf'},
+    {posts:'৩৩', org:'Bangladesh Bank – সহকারী পরিচালক (পরিসংখ্যান)', deadline:'10 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/bangladesh-bank-assistant-director-statistics-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/statstucs-bb-55-1783520561-9955.pdf'},
+    {posts:'—', org:'DC Office Barguna – জেলা প্রশাসকের কার্যালয় বরগুনা', deadline:'06 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/dc-office-barguna-job-circular-2026-9-posts', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/jela-prsasker-karzaly-brguna-1783519979-6166.pdf'},
+    // PAGE 2
+    {posts:'১৪৬০', org:'BREB – বাংলাদেশ পল্লী বিদ্যুতায়ন বোর্ড', deadline:'21 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/bangladesh-rural-electrification-board-breb-job-circular-2026-1460-posts', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/24e586e3-b567-45a5-af83-fe45080a56f3-1783435050-7980.pdf'},
+    {posts:'২০', org:'NPA – জাতীয় পেনশন কর্তৃপক্ষ', deadline:'28 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/national-pension-authority-npa-job-circular-2026-20-posts', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/466b-1783342741-2759.pdf'},
+    {posts:'—', org:'Dept. of Women Affairs – মহিলা বিষয়ক অধিদপ্তর', deadline:'28 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/department-of-women-affairs-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/mhila-bishzk-odhidptr-1783257477-1034.pdf'},
+    {posts:'—', org:'BCIC/TICI – বাংলাদেশ কেমিক্যাল ইন্ডাস্ট্রিজ কর্পোরেশন', deadline:'03 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/bcic-tici-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/e28103ac-f022-4797-b695-f5941cfc0f1c-1783172819-7805.pdf'},
+    {posts:'—', org:'Bangladesh Bank AD (ICT) – বাংলাদেশ ব্যাংক সহকারী পরিচালক ICT', deadline:'03 Aug 2026', status:'active', detail:'https://biddabari.com/job-circular-details/bangladesh-bank-ad-ict-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/adict-1783000035-5863.pdf'},
+    {posts:'—', org:'NSC – জাতীয় ক্রীড়া পরিষদ', deadline:'30 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/nsc-job-circular-2026-national-sports-council-job-circular', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/jateez-kreeda-prishd-nizog-bijngpti-2026-1782913492-2468.pdf'},
+    {posts:'—', org:'EGCB – ইলেকট্রিসিটি জেনারেশন কোম্পানি বাংলাদেশ', deadline:'21 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/egcb-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/egcb-job-circular-1782824372-9809.pdf'},
+    {posts:'—', org:'DTER – কারিগরি শিক্ষা অধিদপ্তর', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/dter-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/karigri-siksha-odhidptr-1782740510-9883.pdf'},
+    {posts:'—', org:'BPDB School – বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড মাধ্যমিক বিদ্যালয়', deadline:'23 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/bangladesh-power-development-board-school-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/banglades-bidzutt-unnyn-bord-madhzmik-bidzaly-1782737403-6185.pdf'},
+    {posts:'—', org:'BPSC Non-Cadre – বাংলাদেশ সরকারি কর্ম কমিশন নন-ক্যাডার', deadline:'23 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/bpsc-non-cadre-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/ilovepdf-merged-3-1782651248-5813.pdf'},
+    {posts:'—', org:'Ansar Battalion – আনসার ব্যাটালিয়ন সিপাহী নিয়োগ', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/ansar-battalion-sipahi-recruitment-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/41d086e3-03e1-45ea-8f66-4cc79c2137f5-1782570543-1329.pdf'},
+    {posts:'৫৪৭', org:'Bangladesh Army Civilian – বাংলাদেশ সেনাবাহিনী বেসামরিক পদ', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/bangladesh-army-civilian-job-circular-2026-547-posts', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/job-circulation-for-civilian-permanent-post-in-bangladesh-army-1782462698-7951.pdf'},
+    // PAGE 3
+    {posts:'—', org:'BIAM Foundation – বিয়াম ফাউন্ডেশন', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/biam-foundation-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/biam-foundation-1782048810-1758.pdf'},
+    {posts:'—', org:'DC Office Lakshmipur – জেলা প্রশাসকের কার্যালয় লক্ষ্মীপুর', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/dc-office-lakshmipur-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/dc-lakshmipur-job-759-1-1781798734-8876.pdf'},
+    {posts:'১৬৭', org:'BSDB – বাংলাদেশ রেশম উন্নয়ন বোর্ড', deadline:'21 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/bsb-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/image-57-scaled-1-1781798311-7260.pdf'},
+    {posts:'৫৬', org:'BKKB – বাংলাদেশ কর্মচারী কল্যাণ বোর্ড', deadline:'20 Jul 2026', status:'expired', detail:'https://biddabari.com/job-circular-details/bkkb-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/bkkb-job-circular-1-1781962608-6978.pdf'},
+    {posts:'—', org:'DCD – সমবায় উন্নয়ন বিভাগ', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/dcd-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/dcd20260611-job-circular-1781711222-1249.pdf'},
+    {posts:'৪৩১', org:'DPP – মুদ্রণ ও প্রকাশনা অধিদপ্তর', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/dpp-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/department-of-printing-and-publications-1781711753-2400.pdf'},
+    {posts:'—', org:'DC Office Khulna – জেলা প্রশাসকের কার্যালয় খুলনা', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/dc-office-khulna-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/khulna-jela-prsasker-karzaly-1781611168-8390.pdf'},
+    {posts:'৪৪', org:'Ministry of Textiles & Jute – বস্ত্র ও পাট মন্ত্রণালয়', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/ministry-of-textiles-and-jute-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/bstr-oo-pat-mntrnaly-26616-1-1781611460-6203.pdf'},
+    {posts:'৩৩', org:'Govt. Employees Hospital – সরকারি কর্মচারী হাসপাতাল', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/government-employees-hospital-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/swasthz-khate-mega-niyog-1781617876-3385.pdf'},
+    {posts:'১৭৮', org:'DNCC – ঢাকা উত্তর সিটি কর্পোরেশন', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/dncc-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/dnncc-1781527186-5901.pdf'},
+    // POPULAR
+    {posts:'৪৪', org:'SFDF – ক্ষুদ্র কৃষক উন্নয়ন ফাউন্ডেশন', deadline:'27 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/sfdf-job-circular-2026-44-posts', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/krrishk-unnyn-1781184018-9041.pdf'},
+    {posts:'১৯', org:'President Office – রাষ্ট্রপতির কার্যালয় জন বিভাগ', deadline:'30 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/president-office-public-division-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/rashtrptir-karzaly-1781611753-5429.pdf'},
+    {posts:'৫৭', org:'RDA Rangpur – পল্লী উন্নয়ন একাডেমি রংপুর', deadline:'25 Jul 2026', status:'urgent', detail:'https://biddabari.com/job-circular-details/rural-development-academy-rangpur-job-circular-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/pllee-unnyn-ekademi-rngpurer-punniyog-bijngpti-1782146052-2231.pdf'},
+    {posts:'১১৭', org:'BEPZA – বাংলাদেশ রপ্তানী প্রক্রিয়াকরণ কর্তৃপক্ষ', deadline:'—', status:'none', detail:'https://biddabari.com/job-circular-details/bepza-job-circular-2-2026', pdf:'https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/bepza-job-circular-2026-1782320987-4794.pdf'},
+  ];
+
+  // SAFOLLO DATA
+  const safolloData = [
+    {posts:'৮৬', org:'সামরিক ভূমি ও ক্যান্টনমেন্ট অধিদপ্তর', deadline:'—', detail:'https://www.safollo.ac/job-circular/86-pde-samrik-vuumi-oo-kzantnment-odhidptre-bisal-niyog-bijngpti-2026'},
+    {posts:'১৭৪', org:'বর্ডার গার্ড বাংলাদেশ (বিজিবি) বেসামরিক পদ', deadline:'—', detail:'https://www.safollo.ac/job-circular/174-pde-brdar-gard-bangladese-bijibi-osamrik-pde-bisal-nizog-bijngpti-2026'},
+    {posts:'৭৩১', org:'মহিলা বিষয়ক অধিদপ্তর', deadline:'—', detail:'https://www.safollo.ac/job-circular/731-pde-mhila-bishzk-odhidptrer-ntun-nizog-bijngpti-prkas'},
+    {posts:'৬৯', org:'বাংলাদেশ ব্যাংক — সহকারী পরিচালক (পরিসংখ্যান)', deadline:'—', detail:'https://www.safollo.ac/job-circular/69-pde-banglades-bzangker-shkaree-pricalk-pde-ntun-niyog-bijngpti-prkas'},
+    {posts:'৭২৫', org:'সম্মিলিত ৯টি ব্যাংক ও আর্থিক প্রতিষ্ঠান', deadline:'—', detail:'https://www.safollo.ac/job-circular/725-pde-smnwit-9ti-bzangkarthik-prtishthaner-ntun-niyog-bijngpti-prkas-1'},
+    {posts:'—', org:'রাজশাহী প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয় (RUET)', deadline:'—', detail:'https://www.safollo.ac/job-circular/rajsahee-prkousl-oo-przukti-biswbidzalz-ruet-nizog-bijngpti-2026-ruet-job-circular-2026'},
+    {posts:'—', org:'নেত্রকোনা বিশ্ববিদ্যালয়', deadline:'—', detail:'https://www.safollo.ac/job-circular/netrkona-biswbidzaly-niyog-bijngpti-2026-netrokona-university-job-circular-2026'},
+    {posts:'৫৪৭', org:'বাংলাদেশ সেনাবাহিনী — বেসামরিক নিয়োগ ২০২৬', deadline:'—', detail:'https://www.safollo.ac/job-circular/banglades-senabahineete-besamrik-nizog-bijngpti-2026-pd-sngkhza-547ti'},
+    {posts:'—', org:'খাদ্য মন্ত্রণালয়', deadline:'—', detail:'https://www.safollo.ac/job-circular/khadz-mntrnalzer-ntun-nizog-bijngpti-prkas'},
+    {posts:'৫০,০০০', org:'শিক্ষক নিয়োগ — আগামী ৩ মাসের মধ্যে', deadline:'—', detail:'https://www.safollo.ac/job-circular/agamee-3-maser-mdhze-50-hajar-sikshk-niyog-sikshamntree'},
+    {posts:'—', org:'স্বরাষ্ট্র মন্ত্রণালয়', deadline:'—', detail:'https://www.safollo.ac/job-circular/swrashtr-mntrnalyer-ntun-niyog-bijngpti-prkas'},
+    {posts:'৯০৩', org:'সম্মিলিত ৯ ব্যাংক ও ২টি আর্থিক প্রতিষ্ঠান', deadline:'—', detail:'https://www.safollo.ac/job-circular/903-pde-smnwit-9-bzangk-2ti-arthik-prtishthaner-ntun-niyog-bijngpti-prkas-1'},
+    {posts:'—', org:'বিসিএস প্রশাসন একাডেমি — নিয়োগ পরীক্ষার ফলাফল', deadline:'—', detail:'https://www.safollo.ac/job-circular/bisies-prsasn-ekademir-niyog-preekshar-flafl-prkas'},
+    {posts:'—', org:'বাংলাদেশ ব্যাংক — নতুন নিয়োগ বিজ্ঞপ্তি ২০২৬', deadline:'—', detail:'https://www.safollo.ac/job-circular/banglades-bzangker-ntun-niyog-bijngpti-prkas-2026'},
+    {posts:'—', org:'আকিজ ভেঞ্চার — টেরিটরি সেলস ম্যানেজার', deadline:'—', detail:'https://www.safollo.ac/job-circular/srasri-sakshattkare-akij-vencar-niyog-bijngpti-2026-teritri-sels-mzanejar-pde'},
+    {posts:'৩১', org:'বি-আর পাওয়ার লিমিটেড (BRPL)', deadline:'—', detail:'https://www.safollo.ac/job-circular/31-pde-bi-ar-pawarjen-limited-brpl-niyog-bijngpti-2026'},
+    {posts:'১৬৭', org:'বাংলাদেশ রেশম উন্নয়ন বোর্ড', deadline:'—', detail:'https://www.safollo.ac/job-circular/167-pde-banglades-resm-unnyn-bord-er-ntun-niyog-bijngpti-prkas'},
+    {posts:'৪৩১', org:'মুদ্রণ ও প্রকাশনা অধিদপ্তর', deadline:'—', detail:'https://www.safollo.ac/job-circular/431-pde-mudrn-oo-prkasna-odhidptrer-ntun-niyog-bijngpti-prkas'},
+    {posts:'—', org:'বিভাগীয় নির্বাচনী বোর্ড রাজশাহী — ফলাফল', deadline:'—', detail:'https://www.safollo.ac/job-circular/bivageez-nirwacni-bord-rajsaheer-niyog-preekshar-cuurant-flafl-prkas'},
+    {posts:'—', org:'ব্র্যাক (BRAC) — ম্যানেজার, ইন্টার্নাল অডিট', deadline:'—', detail:'https://www.safollo.ac/job-circular/brzak-brac-nizog-bijngpti-2026-mzanejar-intarnal-odit'},
+    {posts:'৩১', org:'আর্থিক প্রতিষ্ঠান বিভাগ', deadline:'—', detail:'https://www.safollo.ac/job-circular/31-pde-arthik-prtishthan-bivager-ntun-niyog-bijngpti-prkas'},
+    {posts:'—', org:'যমুনা ব্যাংক', deadline:'—', detail:'https://www.safollo.ac/job-circular/zmuna-bzangk-nizog-bijngpti-2026-jamuna-bank-job-circular-2026'},
+    {posts:'—', org:'ভূমি প্রশাসন প্রশিক্ষণ কেন্দ্র (LATC)', deadline:'—', detail:'https://www.safollo.ac/job-circular/vuumi-prsasn-prsikshn-kendr-latc-er-ntun-nizog-bijngpti-prkas'},
+    {posts:'—', org:'প্রাইভেট শিশু শিক্ষা প্রতিষ্ঠান', deadline:'—', detail:'https://www.safollo.ac/job-circular/prvatee-sisu-siksha-prtishthan-er-niyog-bijngpti-prkas'},
+    {posts:'—', org:'ন্যাশনাল টেলিকমিউনিকেশন মনিটরিং সেন্টার (NTMC)', deadline:'—', detail:'https://www.safollo.ac/job-circular/nzasnal-telikmiunikesn-mnitring-sentar-entiemsi-e-ntun-niyog-bijngpti-prkas'},
+    {posts:'২১৪', org:'বাংলাদেশ নৌবাহিনী — বেসামরিক নিয়োগ', deadline:'—', detail:'https://www.safollo.ac/job-circular/214-pde-banglades-noubahineer-besamrik-niyog-bijngpti-prkas'},
+    {posts:'—', org:'বাংলাদেশ পল্লী বিদ্যুতায়ন বোর্ড — মৌখিক পরীক্ষার সময়সূচি', deadline:'—', detail:'https://www.safollo.ac/job-circular/banglades-pllee-bidzutazn-border-cakrir-moukhik-preekshar-smysuuci-prkas'},
+    {posts:'৩৭', org:'পানি সম্পদ মন্ত্রণালয়', deadline:'—', detail:'https://www.safollo.ac/job-circular/37-pde-pani-smpd-mntrnalzer-ntun-niyog-bijngpti-prkas'},
+    {posts:'—', org:'অর্থনৈতিক সম্পর্ক বিভাগ', deadline:'—', detail:'https://www.safollo.ac/job-circular/orthnoitik-smprk-bivager-ntun-niyog-bijngpti-prkas'},
+    {posts:'—', org:'দুর্যোগ ব্যবস্থাপনা অধিদপ্তর — ফলাফল ও সময়সূচি', deadline:'—', detail:'https://www.safollo.ac/job-circular/durzog-bzbsthapna-odhidptrer-niyog-preekshar-flafl-oo-smysuuci-prkas'},
+  ];
+
+  // BCS CONFIDENCE DATA
+  const bcsData = [
+    {date:'05 Jul 2026', title:'৬ পদে মৎস্য — ৭৩১ জনকে নিয়োগ দেবে', link:'https://www.bcsconfidence.online/job-news/6-pde-meat-731-jnke-niyeag-deb'},
+    {date:'04 Jul 2026', title:'কারিগরি শিক্ষা অধিদপ্তরে বড় নিয়োগ', link:'https://www.bcsconfidence.online/job-news/karigri-siksha-odhidptre-br-ni-Pbpv'},
+    {date:'27 Jun 2026', title:'বেপজাতে ৯ম থেকে ২০তম গ্রেডে বড় নিয়োগ', link:'https://www.bcsconfidence.online/job-news/bepjate-9m-theke-20tm-grede-br'},
+    {date:'22 Jun 2026', title:'রেশম উন্নয়ন বোর্ডে বিভিন্ন গ্রেডে নিয়োগ, ৩৩৩ জনকে নিয়োগ দেবে', link:'https://www.bcsconfidence.online/job-news/resm-unnyn-borde-bivinn-gr'},
+    {date:'20 Jun 2026', title:'প্রধানমন্ত্রীর কার্যালয়ের অধীনে বিশাল নিয়োগ', link:'https://www.bcsconfidence.online/job-news/prdhanmntreer-karzalyer-odheen'},
+    {date:'17 Jun 2026', title:'রাষ্ট্রপতির কার্যালয়ের অধীনে চাকরি', link:'https://www.bcsconfidence.online/job-news/rashtrptir-karzalyer-odheen-ca'},
+    {date:'15 Jun 2026', title:'৬ ব্যাংক নেবে ১৩৩৫ অফিসার সহকারী', link:'https://www.bcsconfidence.online/job-news/6-bzangk-nebe-1335-ofisar-s'},
+    {date:'11 Jun 2026', title:'নৌবাহিনীতে বড় নিয়োগ, বেসামরিক পদে চাকরি', link:'https://www.bcsconfidence.online/job-news/noubahineete-br-niyog-besamrik'},
+    {date:'08 Jun 2026', title:'স্থানীয় সরকার মন্ত্রণালয়ের অধীনে চাকরি (ক)', link:'https://www.bcsconfidence.online/job-news/sthaneey-srkar-mntrnalyer-odhee-h3FV'},
+    {date:'08 Jun 2026', title:'স্থানীয় সরকার মন্ত্রণালয়ের অধীনে চাকরি (খ)', link:'https://www.bcsconfidence.online/job-news/sthaneey-srkar-mntrnalyer-odhee'},
+  ];
+
+  // ─── RENDER ───────────────────────────────────────────────────────────────
+  function deadlineBadge(dl, status) {
+    if (!dl || dl === '—') return '<span class="dl-none">—</span>';
+    const cls = status === 'active' ? 'dl-active' : status === 'urgent' ? 'dl-urgent' : status === 'expired' ? 'dl-expired' : 'dl-none';
+    const icon = status === 'active' ? '🟢' : status === 'urgent' ? '🟡' : status === 'expired' ? '🔴' : '';
+    return `<span class="dl-badge ${cls}">${icon} ${dl}</span>`;
+  }
+
+  function renderBiddabari() {
+    const tbody = document.getElementById('tbody-biddabari');
+    biddabariData.forEach((d, i) => {
+      const tr = document.createElement('tr');
+      tr.dataset.source = 'biddabari';
+      tr.dataset.text = (d.org + ' ' + d.deadline).toLowerCase();
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${d.posts}</td>
+        <td><span class="org-name">${d.org}</span></td>
+        <td>${deadlineBadge(d.deadline, d.status)}</td>
+        <td>
+          <div class="btn-row">
+            <a href="${d.detail}" target="_blank" class="btn-detail">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              বিস্তারিত
+            </a>
+            ${d.pdf ? `<a href="${d.pdf}" target="_blank" class="btn-pdf" download>
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              PDF
+            </a>` : ''}
+          </div>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderSafollo() {
+    const tbody = document.getElementById('tbody-safollo');
+    safolloData.forEach((d, i) => {
+      const tr = document.createElement('tr');
+      tr.dataset.source = 'safollo';
+      tr.dataset.text = d.org.toLowerCase();
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${d.posts}</td>
+        <td><span class="org-name">${d.org}</span></td>
+        <td><span class="dl-none">—</span></td>
+        <td>
+          <div class="btn-row">
+            <a href="${d.detail}" target="_blank" class="btn-detail">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              বিস্তারিত
+            </a>
+          </div>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderBCS() {
+    const tbody = document.getElementById('tbody-bcsconfidence');
+    bcsData.forEach((d, i) => {
+      const tr = document.createElement('tr');
+      tr.dataset.source = 'bcsconfidence';
+      tr.dataset.text = d.title.toLowerCase();
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td style="font-family:'Inter',sans-serif;font-size:0.78rem;color:#64748b">${d.date}</td>
+        <td><span class="org-name">${d.title}</span></td>
+        <td>
+          <a href="${d.link}" target="_blank" class="btn-detail">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            পড়ুন
+          </a>
+        </td>
+        <td><span style="font-size:0.75rem;color:#475569;font-family:'Inter',sans-serif">BCS Confidence</span></td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ─── FILTER / SEARCH ──────────────────────────────────────────────────────
+  let activeSource = 'all';
+
+  function setSource(btn, src) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeSource = src;
+    // Show/hide source groups
+    document.querySelectorAll('[data-source-group]').forEach(el => {
+      el.style.display = (src === 'all' || el.dataset.sourceGroup === src) ? '' : 'none';
+    });
+    filterTable();
+  }
+
+  function filterTable() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    let total = 0;
+    document.querySelectorAll('tbody tr').forEach(tr => {
+      const src = tr.dataset.source;
+      const txt = tr.dataset.text || '';
+      const srcMatch = activeSource === 'all' || src === activeSource;
+      const txtMatch = !q || txt.includes(q);
+      const visible = srcMatch && txtMatch;
+      tr.classList.toggle('hidden', !visible);
+      if (visible) total++;
+    });
+    document.getElementById('totalCount').textContent = total;
+    document.getElementById('emptyState').style.display = total === 0 ? 'block' : 'none';
+  }
+
+  // ─── INIT ─────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load shared header/footer
+    fetch('header.html').then(r=>r.text()).then(h=>{
+      document.getElementById('header-placeholder').innerHTML=h;
+      var s=document.createElement('script');s.textContent=`
+        var page='job-circulars.html';
+        var map={'index.html':'nav-home','about.html':'nav-about','research.html':'nav-research','articles.html':'nav-articles','cv.html':'nav-cv','contact.html':'nav-contact'};
+        Object.values(map).forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
+      `;document.head.appendChild(s);
+    });
+    fetch('footer.html').then(r=>r.text()).then(h=>{document.getElementById('footer-placeholder').innerHTML=h;});
+
+    renderBiddabari();
+    renderSafollo();
+    renderBCS();
+    filterTable();
+  });
+  </script>
+</body>
+</html>
