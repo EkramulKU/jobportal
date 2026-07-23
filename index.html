@@ -254,8 +254,24 @@
   <!-- SYNC MODAL -->
   <div class="modal-overlay" id="syncModal" onclick="if(event.target===this)closeSyncModal()">
     <div class="modal">
-      <h3>☁ Cross-Browser Sync</h3>
-      <p>GitHub Token দিন। একবার দিলে সব browser এ sync হবে এবং portal এর <strong style="color:var(--blue2)">🔄 আপডেট</strong> বাটনও কাজ করবে।<br><br>Token এ এই দুটো scope দিন: <span style="color:var(--amber2);font-weight:700">gist</span> + <span style="color:var(--amber2);font-weight:700">workflow</span></p>
+
+      <!-- WORKER URL SECTION -->
+      <h3>⚡ Update URL (সহজ পদ্ধতি)</h3>
+      <p>Cloudflare Worker URL দিন — তাহলে যেকোনো ডিভাইস থেকে token ছাড়াই 🔄 আপডেট করা যাবে।<br>
+      <a href="https://workers.cloudflare.com" target="_blank" style="color:var(--blue2)">Cloudflare Worker</a> কীভাবে বানাবেন: নিচের নির্দেশনা দেখুন।</p>
+      <input class="modal-input" id="workerUrlInput" type="url" placeholder="https://job-update.yourname.workers.dev" autocomplete="off">
+      <div style="display:flex;gap:.5rem;margin-bottom:1.2rem">
+        <button class="mbtn mbtn-primary" onclick="saveWorkerUrl()" style="flex:2">⚡ Save করুন</button>
+        <button class="mbtn mbtn-danger" id="clearWorkerBtn" onclick="clearWorkerUrl()" style="display:none;flex:1">✕ মুছুন</button>
+      </div>
+      <div id="workerStatusMsg" class="sync-status"></div>
+
+      <hr style="border:none;border-top:1px solid var(--b);margin:1rem 0">
+
+      <!-- GITHUB SYNC SECTION -->
+      <h3 style="margin-bottom:.3rem">☁ Cross-Browser Sync (ঐচ্ছিক)</h3>
+      <p>GitHub Token দিন — সব browser এ Save/Ignore/Apply sync হবে।<br>
+      Token scope: <span style="color:var(--amber2);font-weight:700">gist</span> + <span style="color:var(--amber2);font-weight:700">workflow</span></p>
       <input class="modal-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
       <div id="syncStatusMsg" class="sync-status"></div>
       <div class="modal-actions" style="margin-top:.8rem">
@@ -263,7 +279,7 @@
         <button class="mbtn mbtn-danger" id="disconnectBtn" onclick="disconnectGist()" style="display:none">✕ Disconnect</button>
         <button class="mbtn mbtn-ghost" onclick="closeSyncModal()">বাতিল</button>
       </div>
-      <p style="margin-top:1rem;font-size:.68rem;color:var(--muted)">Token শুধু আপনার browser এ থাকে। GitHub এ একটি private Gist তৈরি হবে।<br>Token বানান: <a href="https://github.com/settings/tokens/new?scopes=gist" target="_blank" style="color:var(--blue2)">github.com/settings/tokens</a> → scope: <strong>gist</strong></p>
+      <p style="margin-top:1rem;font-size:.68rem;color:var(--muted)">Token বানান: <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--blue2)">github.com/settings/tokens</a></p>
     </div>
   </div>
 
@@ -368,6 +384,45 @@
 const SK      = 'jc_statuses_v2';
 const TK      = 'jc_gh_token';
 const GID_KEY = 'jc_gist_id';
+const WK_KEY  = 'jc_worker_url';   // Cloudflare Worker URL
+
+let workerUrl = null;
+
+function loadWorkerUrl() {
+  workerUrl = localStorage.getItem(WK_KEY) || null;
+  const inp = document.getElementById('workerUrlInput');
+  const clr = document.getElementById('clearWorkerBtn');
+  if (workerUrl) {
+    if (inp) inp.value = workerUrl;
+    if (clr) clr.style.display = '';
+    setWorkerMsg('⚡ Worker URL সেট আছে — token ছাড়াই আপডেট হবে', 'ok');
+  }
+}
+
+function saveWorkerUrl() {
+  const val = (document.getElementById('workerUrlInput').value || '').trim();
+  if (!val || !val.startsWith('http')) { setWorkerMsg('সঠিক URL দিন (https://...)', 'err'); return; }
+  workerUrl = val;
+  localStorage.setItem(WK_KEY, val);
+  document.getElementById('clearWorkerBtn').style.display = '';
+  setWorkerMsg('✅ Saved! এখন 🔄 আপডেট বাটন token ছাড়াই কাজ করবে', 'ok');
+  setTimeout(closeSyncModal, 1500);
+}
+
+function clearWorkerUrl() {
+  workerUrl = null;
+  localStorage.removeItem(WK_KEY);
+  document.getElementById('workerUrlInput').value = '';
+  document.getElementById('clearWorkerBtn').style.display = 'none';
+  setWorkerMsg('Worker URL মুছে গেছে', '');
+}
+
+function setWorkerMsg(msg, type) {
+  const el = document.getElementById('workerStatusMsg');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'sync-status' + (type ? ' ' + type : '');
+}
 
 function getStatuses() { try { return JSON.parse(localStorage.getItem(SK)||'{}'); } catch(e){ return {}; } }
 function saveStatuses(s) { localStorage.setItem(SK, JSON.stringify(s)); }
@@ -519,65 +574,74 @@ function closeSyncModal() { document.getElementById('syncModal').classList.remov
 let updateTimer = null;
 
 async function triggerUpdate() {
-  // Use stored token (from sync setup)
-  let token = syncToken || localStorage.getItem(TK);
+  const btn   = document.getElementById('updateBtn');
+  const label = document.getElementById('updateLabel');
 
-  if (!token) {
-    // No token → open sync modal with message
+  // Priority 1: Use Cloudflare Worker (no token needed)
+  const wUrl = workerUrl || localStorage.getItem(WK_KEY);
+  // Priority 2: Use stored GitHub token
+  const token = syncToken || localStorage.getItem(TK);
+
+  if (!wUrl && !token) {
     openSyncModal();
-    setSyncMsg('⚠ আপডেট করতে আগে Sync Connect করুন (gist + workflow scope)', 'err');
+    setWorkerMsg('⚠ আগে Worker URL অথবা GitHub Token দিন', 'err');
     return;
   }
 
-  const btn   = document.getElementById('updateBtn');
-  const label = document.getElementById('updateLabel');
   btn.classList.add('running');
   btn.disabled = true;
   label.textContent = 'চলছে...';
 
   try {
-    const r = await fetch(
-      'https://api.github.com/repos/EkramulKU/jobportal/actions/workflows/update_circulars.yml/dispatches',
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github+json',
-          'Content-Type': 'application/json',
-          'User-Agent': 'JobAssistant'
-        },
-        body: JSON.stringify({ref: 'master'})
-      }
-    );
+    let ok = false;
 
-    if (r.status === 401 || r.status === 403) {
-      // Token might not have workflow scope
-      openSyncModal();
-      setSyncMsg('❌ Token এ workflow scope নেই — নতুন token বানান', 'err');
-      resetUpdateBtn();
-      return;
-    }
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-
-    showToast('🚀 Update শুরু হয়েছে — ২ মিনিট পরে data refresh হবে');
-    label.textContent = '⏳ ২ মিনিট...';
-
-    // Countdown and reload after ~2 min
-    let secs = 120;
-    clearInterval(updateTimer);
-    updateTimer = setInterval(async () => {
-      secs--;
-      if (secs > 0) {
-        label.textContent = `⏳ ${secs}s...`;
-      } else {
-        clearInterval(updateTimer);
-        label.textContent = '📥 লোড হচ্ছে...';
-        await loadData();
-        showToast('✅ নতুন circular আপডেট হয়েছে!');
+    if (wUrl) {
+      // Call Cloudflare Worker (no auth needed)
+      const r = await fetch(wUrl, { method: 'POST' });
+      ok = r.ok;
+      if (!ok) throw new Error(`Worker error: HTTP ${r.status}`);
+    } else {
+      // Fallback: direct GitHub API with token
+      const r = await fetch(
+        'https://api.github.com/repos/EkramulKU/jobportal/actions/workflows/update_circulars.yml/dispatches',
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github+json',
+            'Content-Type': 'application/json',
+            'User-Agent': 'JobAssistant'
+          },
+          body: JSON.stringify({ref: 'master'})
+        }
+      );
+      if (r.status === 401 || r.status === 403) {
+        openSyncModal();
+        setSyncMsg('❌ Token এ workflow scope নেই — নতুন token বানান', 'err');
         resetUpdateBtn();
+        return;
       }
-    }, 1000);
+      ok = r.status === 204;
+    }
 
+    if (ok) {
+      showToast('🚀 Update শুরু — ২ মিনিট পরে নতুন circular দেখাবে');
+      label.textContent = '⏳ ২ মিনিট...';
+      let secs = 120;
+      clearInterval(updateTimer);
+      updateTimer = setInterval(async () => {
+        secs--;
+        if (secs > 0) {
+          label.textContent = `⏳ ${secs}s...`;
+        } else {
+          clearInterval(updateTimer);
+          label.textContent = '📥 লোড হচ্ছে...';
+          await loadData();
+          showToast('✅ নতুন circular আপডেট হয়েছে!');
+          resetUpdateBtn();
+        }
+      }, 1000);
+    }
   } catch(e) {
     showToast('❌ ' + (e.message || 'সমস্যা হয়েছে'));
     resetUpdateBtn();
@@ -859,9 +923,9 @@ async function loadData() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadWorkerUrl();
   loadSyncConfig();
   loadData();
-  // If connected, sync from Gist on load
   if (syncToken && syncGistId) syncFromGist();
 });
 </script>
