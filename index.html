@@ -46,8 +46,35 @@
     .search-wrap input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,142,247,.15)}
     .search-wrap input::placeholder{color:var(--muted)}
     .hdr-meta{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+    .sync-btn{display:flex;align-items:center;gap:5px;padding:.38rem .8rem;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--muted2);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .sync-btn:hover{border-color:var(--b2);color:var(--text)}
+    .sync-btn.synced{border-color:rgba(16,185,129,.35);color:var(--green2);background:rgba(16,185,129,.08)}
+    .sync-btn.syncing{opacity:.6;pointer-events:none}
     .live-b{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--green);font-weight:500}
     .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+
+    /* SYNC MODAL */
+    .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
+    .modal-overlay.open{display:flex}
+    @media(min-width:600px){.modal-overlay{align-items:center}}
+    .modal{background:#0d1322;border:1px solid var(--b2);border-radius:20px 20px 0 0;padding:1.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom));width:100%;max-width:480px;animation:slideUp .25s ease}
+    @media(min-width:600px){.modal{border-radius:20px}}
+    @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal h3{font-size:1rem;font-weight:700;margin-bottom:.3rem}
+    .modal p{font-size:.78rem;color:var(--muted2);font-family:'Noto Serif Bengali',serif;line-height:1.6;margin-bottom:1rem}
+    .modal-input{width:100%;background:var(--s);border:1px solid var(--b);border-radius:10px;padding:.65rem 1rem;color:var(--text);font-size:.82rem;font-family:monospace;margin-bottom:.8rem;transition:border .2s}
+    .modal-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,142,247,.15)}
+    .modal-input::placeholder{color:var(--muted);font-family:'Inter',sans-serif}
+    .modal-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+    .mbtn{flex:1;padding:.6rem 1rem;border-radius:9px;font-size:.8rem;font-weight:600;cursor:pointer;border:1px solid;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+    .mbtn-primary{background:rgba(79,142,247,.15);border-color:rgba(79,142,247,.4);color:var(--blue2)}
+    .mbtn-primary:hover{background:rgba(79,142,247,.25)}
+    .mbtn-danger{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--red2)}
+    .mbtn-danger:hover{background:rgba(239,68,68,.2)}
+    .mbtn-ghost{background:transparent;border-color:var(--b);color:var(--muted2)}
+    .mbtn-ghost:hover{color:var(--text);border-color:var(--b2)}
+    .sync-status{font-size:.72rem;color:var(--muted);margin-top:.6rem;font-family:'Noto Serif Bengali',serif}
+    .sync-status.ok{color:var(--green2)} .sync-status.err{color:var(--red2)}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
     /* TAB BAR */
@@ -207,9 +234,29 @@
       <input type="text" id="searchInput" placeholder="সংস্থার নাম খুঁজুন..." oninput="applyFilters()">
     </div>
     <div class="hdr-meta">
+      <button class="sync-btn" id="syncBtn" onclick="openSyncModal()" title="Cross-browser sync">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span id="syncLabel">Sync</span>
+      </button>
       <div class="live-b"><div class="live-dot"></div><span id="hdrUpdate" style="font-size:.65rem;color:var(--muted)">...</span></div>
     </div>
   </header>
+
+  <!-- SYNC MODAL -->
+  <div class="modal-overlay" id="syncModal" onclick="if(event.target===this)closeSyncModal()">
+    <div class="modal">
+      <h3>☁ Cross-Browser Sync</h3>
+      <p>GitHub Token দিন (শুধু <strong style="color:var(--amber2)">gist</strong> scope দরকার)। একবার দিলে সব browser এ Save/Ignore/Apply sync হবে।</p>
+      <input class="modal-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+      <div id="syncStatusMsg" class="sync-status"></div>
+      <div class="modal-actions" style="margin-top:.8rem">
+        <button class="mbtn mbtn-primary" onclick="connectGist()">✓ Connect করুন</button>
+        <button class="mbtn mbtn-danger" id="disconnectBtn" onclick="disconnectGist()" style="display:none">✕ Disconnect</button>
+        <button class="mbtn mbtn-ghost" onclick="closeSyncModal()">বাতিল</button>
+      </div>
+      <p style="margin-top:1rem;font-size:.68rem;color:var(--muted)">Token শুধু আপনার browser এ থাকে। GitHub এ একটি private Gist তৈরি হবে।<br>Token বানান: <a href="https://github.com/settings/tokens/new?scopes=gist" target="_blank" style="color:var(--blue2)">github.com/settings/tokens</a> → scope: <strong>gist</strong></p>
+    </div>
+  </div>
 
   <!-- TAB BAR (desktop) -->
   <div class="tab-bar" id="tabBar">
@@ -305,7 +352,10 @@
 
 <script>
 // ─── STORAGE ────────────────────────────────────────────────────────────────
-const SK = 'jc_statuses_v2';
+const SK      = 'jc_statuses_v2';
+const TK      = 'jc_gh_token';
+const GID_KEY = 'jc_gist_id';
+
 function getStatuses() { try { return JSON.parse(localStorage.getItem(SK)||'{}'); } catch(e){ return {}; } }
 function saveStatuses(s) { localStorage.setItem(SK, JSON.stringify(s)); }
 function getStatus(id) { return getStatuses()[id] || null; }
@@ -313,7 +363,144 @@ function setStatusRaw(id, status) {
   const s = getStatuses();
   if (status === null) delete s[id]; else s[id] = status;
   saveStatuses(s);
+  syncToGist(s);   // auto-push to Gist if connected
 }
+
+// ─── GIST SYNC ───────────────────────────────────────────────────────────────
+const GF = 'job_assistant_statuses.json';
+let syncToken = null;
+let syncGistId = null;
+let isSyncing = false;
+
+function loadSyncConfig() {
+  syncToken  = localStorage.getItem(TK) || null;
+  syncGistId = localStorage.getItem(GID_KEY) || null;
+  updateSyncUI();
+}
+
+function updateSyncUI() {
+  const btn   = document.getElementById('syncBtn');
+  const label = document.getElementById('syncLabel');
+  if (syncToken) {
+    btn.classList.add('synced');
+    label.textContent = '✓ Synced';
+  } else {
+    btn.classList.remove('synced');
+    label.textContent = 'Sync';
+  }
+}
+
+async function connectGist() {
+  const token = document.getElementById('tokenInput').value.trim();
+  if (!token) { setSyncMsg('Token লিখুন', 'err'); return; }
+  setSyncMsg('সংযোগ হচ্ছে...', '');
+
+  try {
+    // Verify token
+    const me = await ghFetch('https://api.github.com/user', token);
+    if (!me.login) throw new Error('Invalid token');
+
+    // Find or create gist
+    let gistId = null;
+    const gists = await ghFetch('https://api.github.com/gists?per_page=50', token);
+    const found = Array.isArray(gists) && gists.find(g => g.files && g.files[GF]);
+    if (found) {
+      gistId = found.id;
+      // Load remote statuses and merge
+      const detail = await ghFetch(`https://api.github.com/gists/${gistId}`, token);
+      const remote = JSON.parse(detail.files[GF].content || '{}');
+      const local  = getStatuses();
+      const merged = {...remote, ...local};
+      saveStatuses(merged);
+    } else {
+      // Create new gist
+      const created = await ghFetch('https://api.github.com/gists', token, 'POST', {
+        description: 'Job Assistant Sync', public: false,
+        files: {[GF]: {content: JSON.stringify(getStatuses(), null, 2)}}
+      });
+      gistId = created.id;
+    }
+
+    // Save config
+    syncToken  = token;
+    syncGistId = gistId;
+    localStorage.setItem(TK, token);
+    localStorage.setItem(GID_KEY, gistId);
+
+    setSyncMsg(`✓ ${me.login} এর সাথে সংযুক্ত`, 'ok');
+    updateSyncUI();
+    document.getElementById('disconnectBtn').style.display = '';
+    renderAll();
+    setTimeout(closeSyncModal, 1500);
+  } catch(e) {
+    setSyncMsg('❌ ' + (e.message||'সমস্যা হয়েছে'), 'err');
+  }
+}
+
+async function syncToGist(statuses) {
+  if (!syncToken || !syncGistId || isSyncing) return;
+  isSyncing = true;
+  const btn = document.getElementById('syncBtn');
+  btn.classList.add('syncing');
+  try {
+    await ghFetch(`https://api.github.com/gists/${syncGistId}`, syncToken, 'PATCH', {
+      files: {[GF]: {content: JSON.stringify(statuses, null, 2)}}
+    });
+  } catch(e) { console.warn('Gist sync failed:', e); }
+  isSyncing = false;
+  btn.classList.remove('syncing');
+}
+
+async function syncFromGist() {
+  if (!syncToken || !syncGistId) return;
+  try {
+    const detail = await ghFetch(`https://api.github.com/gists/${syncGistId}`, syncToken);
+    const remote = JSON.parse(detail.files[GF]?.content || '{}');
+    saveStatuses(remote);
+    renderAll();
+    showToast('☁ Gist থেকে sync হয়েছে');
+  } catch(e) { console.warn('Gist load failed:', e); }
+}
+
+function disconnectGist() {
+  syncToken = null; syncGistId = null;
+  localStorage.removeItem(TK); localStorage.removeItem(GID_KEY);
+  updateSyncUI();
+  document.getElementById('disconnectBtn').style.display = 'none';
+  setSyncMsg('Disconnect হয়ে গেছে', '');
+  setTimeout(closeSyncModal, 1000);
+}
+
+async function ghFetch(url, token, method='GET', body=null) {
+  const opts = {
+    method,
+    headers: {'Authorization': `token ${token}`, 'Accept': 'application/json', 'Content-Type': 'application/json', 'User-Agent': 'JobAssistant'}
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(url, opts);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+function setSyncMsg(msg, type) {
+  const el = document.getElementById('syncStatusMsg');
+  el.textContent = msg;
+  el.className = 'sync-status' + (type ? ' ' + type : '');
+}
+
+function openSyncModal() {
+  document.getElementById('syncModal').classList.add('open');
+  document.getElementById('syncStatusMsg').textContent = '';
+  if (syncToken) {
+    document.getElementById('tokenInput').value = '••••••••••••••';
+    document.getElementById('disconnectBtn').style.display = '';
+    setSyncMsg('ইতিমধ্যে সংযুক্ত আছেন', 'ok');
+  } else {
+    document.getElementById('tokenInput').value = '';
+    document.getElementById('disconnectBtn').style.display = 'none';
+  }
+}
+function closeSyncModal() { document.getElementById('syncModal').classList.remove('open'); }
 
 // ─── STATE ──────────────────────────────────────────────────────────────────
 let ALL_JOBS = [];   // flat array: {id, src, org/title, posts, deadline, deadline_status, detail_url, pdf_url, date_added}
@@ -578,7 +765,12 @@ async function loadData() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', () => {
+  loadSyncConfig();
+  loadData();
+  // If connected, sync from Gist on load
+  if (syncToken && syncGistId) syncFromGist();
+});
 </script>
 </body>
 </html>

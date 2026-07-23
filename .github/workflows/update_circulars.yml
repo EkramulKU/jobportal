@@ -2,8 +2,8 @@ name: 🔄 Update Job Circulars Daily
 
 on:
   schedule:
-    # Every day at 18:00 UTC = midnight Bangladesh time (UTC+6)
-    - cron: '0 18 * * *'
+    # Run every 6 hours: midnight, 6am, noon, 6pm (Bangladesh time = UTC+6)
+    - cron: '0 0,6,12,18 * * *'
   workflow_dispatch:   # allow manual trigger from GitHub UI
 
 permissions:
