@@ -77,6 +77,15 @@
     .sync-status.ok{color:var(--green2)} .sync-status.err{color:var(--red2)}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
+    /* UPDATE BUTTON */
+    .update-btn{display:flex;align-items:center;gap:5px;padding:.4rem .9rem;border-radius:20px;border:1px solid rgba(79,142,247,.3);background:rgba(79,142,247,.1);color:var(--blue2);font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+    .update-btn:hover{background:rgba(79,142,247,.2);border-color:rgba(79,142,247,.5)}
+    .update-btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none}
+    .update-btn.running{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.1);color:var(--amber2)}
+    .update-btn svg{flex-shrink:0}
+    @keyframes spin2{to{transform:rotate(360deg)}}
+    .update-btn.running svg{animation:spin2 1s linear infinite}
+
     /* TAB BAR */
     .tab-bar{position:sticky;top:58px;z-index:190;background:rgba(7,11,20,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);display:flex;padding:0 1.25rem;gap:0;overflow-x:auto;scrollbar-width:none}
     .tab-bar::-webkit-scrollbar{display:none}
@@ -246,7 +255,7 @@
   <div class="modal-overlay" id="syncModal" onclick="if(event.target===this)closeSyncModal()">
     <div class="modal">
       <h3>☁ Cross-Browser Sync</h3>
-      <p>GitHub Token দিন (শুধু <strong style="color:var(--amber2)">gist</strong> scope দরকার)। একবার দিলে সব browser এ Save/Ignore/Apply sync হবে।</p>
+      <p>GitHub Token দিন। একবার দিলে সব browser এ sync হবে এবং portal এর <strong style="color:var(--blue2)">🔄 আপডেট</strong> বাটনও কাজ করবে।<br><br>Token এ এই দুটো scope দিন: <span style="color:var(--amber2);font-weight:700">gist</span> + <span style="color:var(--amber2);font-weight:700">workflow</span></p>
       <input class="modal-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
       <div id="syncStatusMsg" class="sync-status"></div>
       <div class="modal-actions" style="margin-top:.8rem">
@@ -284,6 +293,10 @@
     <button class="src-btn" data-f="biddabari" onclick="setSrc(this,'biddabari')"><span class="src-dot" style="background:#4f8ef7"></span>Biddabari</button>
     <button class="src-btn" data-f="safollo" onclick="setSrc(this,'safollo')"><span class="src-dot" style="background:#10b981"></span>Safollo</button>
     <button class="src-btn" data-f="bcsconfidence" onclick="setSrc(this,'bcsconfidence')"><span class="src-dot" style="background:#a78bfa"></span>BCS Confidence</button>
+    <button class="update-btn" id="updateBtn" onclick="triggerUpdate()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      <span id="updateLabel">🔄 আপডেট</span>
+    </button>
     <span class="cnt-info">দেখাচ্ছে: <strong id="visCount">0</strong> টি</span>
   </div>
 
@@ -501,6 +514,83 @@ function openSyncModal() {
   }
 }
 function closeSyncModal() { document.getElementById('syncModal').classList.remove('open'); }
+
+// ─── UPDATE TRIGGER ──────────────────────────────────────────────────────────
+let updateTimer = null;
+
+async function triggerUpdate() {
+  // Use stored token (from sync setup)
+  let token = syncToken || localStorage.getItem(TK);
+
+  if (!token) {
+    // No token → open sync modal with message
+    openSyncModal();
+    setSyncMsg('⚠ আপডেট করতে আগে Sync Connect করুন (gist + workflow scope)', 'err');
+    return;
+  }
+
+  const btn   = document.getElementById('updateBtn');
+  const label = document.getElementById('updateLabel');
+  btn.classList.add('running');
+  btn.disabled = true;
+  label.textContent = 'চলছে...';
+
+  try {
+    const r = await fetch(
+      'https://api.github.com/repos/EkramulKU/jobportal/actions/workflows/update_circulars.yml/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'User-Agent': 'JobAssistant'
+        },
+        body: JSON.stringify({ref: 'master'})
+      }
+    );
+
+    if (r.status === 401 || r.status === 403) {
+      // Token might not have workflow scope
+      openSyncModal();
+      setSyncMsg('❌ Token এ workflow scope নেই — নতুন token বানান', 'err');
+      resetUpdateBtn();
+      return;
+    }
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+
+    showToast('🚀 Update শুরু হয়েছে — ২ মিনিট পরে data refresh হবে');
+    label.textContent = '⏳ ২ মিনিট...';
+
+    // Countdown and reload after ~2 min
+    let secs = 120;
+    clearInterval(updateTimer);
+    updateTimer = setInterval(async () => {
+      secs--;
+      if (secs > 0) {
+        label.textContent = `⏳ ${secs}s...`;
+      } else {
+        clearInterval(updateTimer);
+        label.textContent = '📥 লোড হচ্ছে...';
+        await loadData();
+        showToast('✅ নতুন circular আপডেট হয়েছে!');
+        resetUpdateBtn();
+      }
+    }, 1000);
+
+  } catch(e) {
+    showToast('❌ ' + (e.message || 'সমস্যা হয়েছে'));
+    resetUpdateBtn();
+  }
+}
+
+function resetUpdateBtn() {
+  const btn = document.getElementById('updateBtn');
+  btn.classList.remove('running');
+  btn.disabled = false;
+  document.getElementById('updateLabel').textContent = '🔄 আপডেট';
+  clearInterval(updateTimer);
+}
 
 // ─── STATE ──────────────────────────────────────────────────────────────────
 let ALL_JOBS = [];   // flat array: {id, src, org/title, posts, deadline, deadline_status, detail_url, pdf_url, date_added}
