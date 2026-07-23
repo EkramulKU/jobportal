@@ -842,6 +842,9 @@ async function loadData() {
     (data.safollo || []).forEach(j => ALL_JOBS.push({...j, src:'safollo'}));
     (data.bcsconfidence || []).forEach(j => ALL_JOBS.push({...j, src:'bcsconfidence', org: j.title}));
 
+    // Sort: newest date_added first
+    ALL_JOBS.sort((a, b) => (b.date_added || '').localeCompare(a.date_added || ''));
+
     const upd = data.last_updated || '';
     document.getElementById('hdrUpdate').textContent = upd ? 'আপডেট: ' + upd : '';
 
