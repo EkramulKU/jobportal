@@ -3,385 +3,582 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>চাকরির বিজ্ঞপ্তি ২০২৬ | Job Circular BD</title>
-  <meta name="description" content="বাংলাদেশ সরকারি ও বেসরকারি চাকরির বিজ্ঞপ্তি ২০২৬ – স্বয়ংক্রিয় দৈনিক আপডেট">
+  <title>Job Assistant | আমার চাকরির ট্র্যাকার</title>
+  <meta name="description" content="ব্যক্তিগত চাকরির বিজ্ঞপ্তি ট্র্যাকার — সেভ, আবেদন ও উপেক্ষা করুন">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:#070b14; --bg2:#0d1322; --surface:rgba(255,255,255,0.04);
-      --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.13);
-      --blue:#4f8ef7; --violet:#8b5cf6; --green:#10b981;
-      --amber:#f59e0b; --red:#ef4444;
-      --text:#e2e8f0; --muted:#64748b; --muted2:#94a3b8;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#070b14;--bg2:#0d1322;--bg3:#111827;
+      --s:rgba(255,255,255,.04);--s2:rgba(255,255,255,.07);
+      --b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.14);
+      --blue:#4f8ef7;--blue2:#93c5fd;
+      --violet:#8b5cf6;--violet2:#c4b5fd;
+      --green:#10b981;--green2:#6ee7b7;
+      --amber:#f59e0b;--amber2:#fbbf24;
+      --red:#ef4444;--red2:#fca5a5;
+      --gray:#64748b;--gray2:#94a3b8;
+      --text:#e2e8f0;--muted:#64748b;--muted2:#94a3b8;
+      --radius:12px;
     }
-    html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;padding-bottom:80px}
 
     /* ORBS */
-    .bg-orbs { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-    .orb { position:absolute; border-radius:50%; filter:blur(120px); opacity:0.16; animation:orbFloat 20s ease-in-out infinite alternate; }
-    .orb-1 { width:600px;height:600px;background:#4f8ef7;top:-200px;left:-200px;animation-delay:0s; }
-    .orb-2 { width:500px;height:500px;background:#8b5cf6;top:20%;right:-150px;animation-delay:-7s; }
-    .orb-3 { width:400px;height:400px;background:#10b981;bottom:10%;left:30%;animation-delay:-14s; }
-    @keyframes orbFloat { from{transform:translate(0,0)scale(1)} to{transform:translate(40px,60px)scale(1.1)} }
+    .orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .orb{position:absolute;border-radius:50%;filter:blur(130px);opacity:.13;animation:orbf 22s ease-in-out infinite alternate}
+    .o1{width:600px;height:600px;background:#4f8ef7;top:-200px;left:-200px;animation-delay:0s}
+    .o2{width:500px;height:500px;background:#8b5cf6;top:30%;right:-150px;animation-delay:-8s}
+    .o3{width:400px;height:400px;background:#10b981;bottom:15%;left:25%;animation-delay:-16s}
+    @keyframes orbf{from{transform:translate(0,0)scale(1)}to{transform:translate(50px,70px)scale(1.12)}}
 
     /* HEADER */
-    header { position:sticky;top:0;z-index:100;background:rgba(7,11,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between; }
-    .logo { display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;color:var(--text);text-decoration:none; }
-    .logo-icon { width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--violet));display:flex;align-items:center;justify-content:center;font-size:16px; }
-    .hdr-right { display:flex;align-items:center;gap:1.2rem; }
-    .live-badge { display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--green);font-weight:500; }
-    .live-dot { width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
-    .last-update { font-size:0.72rem;color:var(--muted); }
+    header{position:sticky;top:0;z-index:200;background:rgba(7,11,20,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);padding:0 1.25rem;height:58px;display:flex;align-items:center;gap:1rem}
+    .logo{display:flex;align-items:center;gap:9px;font-size:.95rem;font-weight:700;color:var(--text);text-decoration:none;flex-shrink:0}
+    .logo-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--violet));display:flex;align-items:center;justify-content:center;font-size:15px}
+    .logo-text{display:none}
+    @media(min-width:480px){.logo-text{display:block}}
+    .search-wrap{flex:1;position:relative}
+    .search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+    .search-wrap input{width:100%;background:var(--s);border:1px solid var(--b);border-radius:9px;padding:.55rem .9rem .55rem 2.2rem;color:var(--text);font-size:.85rem;font-family:'Noto Serif Bengali',serif;transition:border .2s,box-shadow .2s}
+    .search-wrap input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,142,247,.15)}
+    .search-wrap input::placeholder{color:var(--muted)}
+    .hdr-meta{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+    .live-b{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--green);font-weight:500}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
-    /* HERO */
-    .hero { position:relative;z-index:1;padding:80px 2rem 50px;text-align:center;max-width:840px;margin:0 auto; }
-    .hero-eyebrow { display:inline-flex;align-items:center;gap:8px;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);border-radius:50px;padding:5px 16px;font-size:.75rem;color:#93c5fd;letter-spacing:.05em;margin-bottom:1.4rem; }
-    .hero h1 { font-family:'Noto Serif Bengali',serif;font-size:clamp(1.9rem,5vw,3.3rem);font-weight:700;line-height:1.2;background:linear-gradient(135deg,#fff 0%,#93c5fd 50%,#c4b5fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.9rem; }
-    .hero p { font-family:'Noto Serif Bengali',serif;font-size:.95rem;color:var(--muted2);line-height:1.7;max-width:540px;margin:0 auto 2rem; }
+    /* TAB BAR */
+    .tab-bar{position:sticky;top:58px;z-index:190;background:rgba(7,11,20,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);display:flex;padding:0 1.25rem;gap:0;overflow-x:auto;scrollbar-width:none}
+    .tab-bar::-webkit-scrollbar{display:none}
+    .tab-btn{display:flex;align-items:center;gap:6px;padding:.75rem .9rem;font-size:.8rem;font-weight:500;color:var(--muted2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+    .tab-btn:hover{color:var(--text)}
+    .tab-btn.active{color:var(--text);border-bottom-color:var(--blue)}
+    .tab-btn.active.t-saved{border-bottom-color:var(--amber);color:var(--amber2)}
+    .tab-btn.active.t-applied{border-bottom-color:var(--green);color:var(--green2)}
+    .tab-btn.active.t-ignored{border-bottom-color:var(--gray);color:var(--gray2)}
+    .tab-count{font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--s2);color:var(--muted2);min-width:20px;text-align:center;transition:all .2s}
+    .tab-btn.active .tab-count{background:rgba(79,142,247,.15);color:var(--blue2)}
+    .tab-btn.active.t-saved .tab-count{background:rgba(245,158,11,.15);color:var(--amber2)}
+    .tab-btn.active.t-applied .tab-count{background:rgba(16,185,129,.15);color:var(--green2)}
+    .tab-btn.active.t-ignored .tab-count{background:rgba(100,116,139,.15);color:var(--gray2)}
 
-    /* STATS */
-    .stats { position:relative;z-index:1;display:flex;gap:1px;max-width:680px;margin:0 auto 2.5rem;background:var(--border);border-radius:16px;overflow:hidden;border:1px solid var(--border); }
-    .stat { flex:1;background:var(--bg2);padding:1.1rem .8rem;text-align:center; }
-    .stat-n { font-size:1.7rem;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1; }
-    .stat-l { font-size:.7rem;color:var(--muted);margin-top:4px;font-family:'Noto Serif Bengali',serif; }
+    /* FILTER BAR */
+    .filter-bar{position:relative;z-index:1;display:flex;gap:.5rem;padding:.8rem 1.25rem;overflow-x:auto;scrollbar-width:none;align-items:center}
+    .filter-bar::-webkit-scrollbar{display:none}
+    .src-btn{display:flex;align-items:center;gap:5px;padding:.4rem .85rem;border-radius:20px;border:1px solid var(--b);background:var(--s);color:var(--muted2);font-size:.73rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+    .src-btn:hover{border-color:var(--b2);color:var(--text)}
+    .src-btn.active{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.35);color:var(--blue2)}
+    .src-dot{width:6px;height:6px;border-radius:50%}
+    .cnt-info{margin-left:auto;font-size:.73rem;color:var(--muted);white-space:nowrap;flex-shrink:0}
+    .cnt-info strong{color:var(--blue)}
 
-    /* CONTROLS */
-    .ctrl-wrap { position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 1.5rem 1.5rem; }
-    .ctrl { background:rgba(13,19,34,.85);border:1px solid var(--border);border-radius:16px;padding:1rem 1.2rem;backdrop-filter:blur(12px);display:flex;gap:.9rem;flex-wrap:wrap;align-items:center; }
-    .search-box { position:relative;flex:1;min-width:200px; }
-    .search-box svg { position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none; }
-    .search-box input { width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.6rem .9rem .6rem 2.4rem;color:var(--text);font-size:.87rem;font-family:'Noto Serif Bengali',serif;transition:border .2s,box-shadow .2s; }
-    .search-box input:focus { outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,142,247,.15); }
-    .search-box input::placeholder { color:var(--muted); }
-    .ftabs { display:flex;gap:.4rem;flex-wrap:wrap; }
-    .ftab { padding:.5rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted2);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:6px; }
-    .ftab:hover { border-color:var(--border2);color:var(--text); }
-    .ftab.active { background:rgba(79,142,247,.15);border-color:rgba(79,142,247,.45);color:#93c5fd; }
-    .fdot { width:7px;height:7px;border-radius:50%; }
-    .cnt-label { font-size:.78rem;color:var(--muted);margin-left:auto;white-space:nowrap; }
-    .cnt-label strong { color:var(--blue); }
+    /* JOBS CONTAINER */
+    .jobs-wrap{position:relative;z-index:1;padding:.5rem 1.25rem;display:grid;gap:.7rem}
 
-    /* MAIN */
-    .main-wrap { position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 1.5rem 5rem; }
+    /* JOB CARD */
+    .job-card{background:rgba(13,19,34,.8);border:1px solid var(--b);border-radius:var(--radius);overflow:hidden;transition:all .25s;position:relative}
+    .job-card:hover{border-color:var(--b2);transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+    .job-card.status-saved{border-left:3px solid var(--amber)}
+    .job-card.status-applied{border-left:3px solid var(--green);opacity:.75}
+    .job-card.status-ignored{opacity:.4;filter:grayscale(.4)}
+    .job-card.is-hidden{display:none!important}
+    .job-card.animating{animation:cardPop .3s ease}
+    @keyframes cardPop{0%{transform:scale(.98)}50%{transform:scale(1.01)}100%{transform:scale(1)}}
+
+    /* CARD INNER */
+    .card-top{display:flex;align-items:flex-start;gap:.7rem;padding:.9rem 1rem .5rem}
+    .src-stripe{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0}
+    .card-body{flex:1;min-width:0}
+    .card-tags{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.35rem}
+    .tag{display:inline-flex;align-items:center;gap:4px;font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:4px;letter-spacing:.03em}
+    .tag-src-biddabari{background:rgba(79,142,247,.12);color:#93c5fd;border:1px solid rgba(79,142,247,.2)}
+    .tag-src-safollo{background:rgba(16,185,129,.12);color:#6ee7b7;border:1px solid rgba(16,185,129,.2)}
+    .tag-src-bcsconfidence{background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(167,139,250,.2)}
+    .tag-new{background:rgba(245,158,11,.12);color:var(--amber2);border:1px solid rgba(245,158,11,.2)}
+    .tag-saved{background:rgba(245,158,11,.15);color:var(--amber2);border:1px solid rgba(245,158,11,.3)}
+    .tag-applied{background:rgba(16,185,129,.15);color:var(--green2);border:1px solid rgba(16,185,129,.3)}
+    .card-title{font-family:'Noto Serif Bengali',serif;font-size:.92rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.4rem}
+    .card-meta{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+    .meta-item{display:flex;align-items:center;gap:4px;font-size:.73rem;color:var(--muted2)}
+    .meta-item svg{flex-shrink:0;opacity:.7}
+    .dl-pill{font-size:.7rem;font-weight:500;padding:2px 8px;border-radius:4px;font-family:'Inter',sans-serif}
+    .dl-active{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+    .dl-urgent{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+    .dl-expired{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.15)}
+
+    /* CARD ACTIONS */
+    .card-actions{display:flex;gap:.5rem;padding:.6rem 1rem .8rem;flex-wrap:wrap;align-items:center;border-top:1px solid var(--b)}
+    .act-group{display:flex;gap:.4rem;flex:1}
+    .link-group{display:flex;gap:.4rem;margin-left:auto}
+
+    /* ACTION BUTTONS */
+    .btn-act{display:inline-flex;align-items:center;gap:4px;padding:.42rem .75rem;border-radius:7px;font-size:.73rem;font-weight:600;font-family:'Inter',sans-serif;border:1px solid;cursor:pointer;transition:all .18s;white-space:nowrap;background:transparent}
+    /* Save */
+    .btn-save{color:var(--muted2);border-color:var(--b)}
+    .btn-save:hover{color:var(--amber2);border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.08)}
+    .btn-save.active{color:var(--amber2);border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.12)}
+    /* Ignore */
+    .btn-ignore{color:var(--muted2);border-color:var(--b)}
+    .btn-ignore:hover{color:var(--red2);border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.07)}
+    .btn-ignore.active{color:var(--red2);border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1)}
+    /* Apply */
+    .btn-apply{color:var(--muted2);border-color:var(--b)}
+    .btn-apply:hover{color:var(--green2);border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08)}
+    .btn-apply.active{color:var(--green2);border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.12)}
+    /* Link buttons */
+    .btn-link{display:inline-flex;align-items:center;gap:4px;padding:.42rem .75rem;border-radius:7px;font-size:.73rem;font-weight:500;font-family:'Inter',sans-serif;border:1px solid var(--b);color:var(--muted2);text-decoration:none;transition:all .18s;white-space:nowrap}
+    .btn-link:hover{color:var(--blue2);border-color:rgba(79,142,247,.35);background:rgba(79,142,247,.08)}
+    .btn-link.pdf:hover{color:var(--green2);border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.08)}
 
     /* LOADING */
-    .loading { text-align:center;padding:4rem;color:var(--muted); }
-    .spinner { width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem; }
-    @keyframes spin { to{transform:rotate(360deg)} }
+    .loading{text-align:center;padding:4rem 2rem;color:var(--muted)}
+    .spinner{width:32px;height:32px;border:2.5px solid var(--b);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* SECTION HEAD */
-    .sec-head { display:flex;align-items:center;gap:10px;margin:2.2rem 0 .8rem;padding-bottom:.8rem;border-bottom:1px solid var(--border); }
-    .sec-dot { width:10px;height:10px;border-radius:50%;flex-shrink:0; }
-    .sec-head h2 { font-size:.95rem;font-weight:600; }
-    .sec-head a { font-size:.73rem;color:var(--muted);text-decoration:none;margin-left:6px; }
-    .sec-head a:hover { color:var(--blue); }
-    .sec-badge { font-size:.68rem;background:var(--surface);border:1px solid var(--border);color:var(--muted2);padding:2px 10px;border-radius:20px;margin-left:4px; }
-    .sec-ml { margin-left:auto; }
+    /* EMPTY STATE */
+    .empty-state{display:none;text-align:center;padding:4rem 2rem;color:var(--muted)}
+    .empty-icon{font-size:3rem;margin-bottom:.8rem;opacity:.4}
+    .empty-state h3{font-size:1rem;font-weight:600;margin-bottom:.4rem;font-family:'Noto Serif Bengali',serif;color:var(--muted2)}
+    .empty-state p{font-size:.8rem;font-family:'Noto Serif Bengali',serif;line-height:1.6}
 
-    /* TABLE */
-    .tbl-wrap { border-radius:14px;overflow:hidden;border:1px solid var(--border);background:rgba(13,19,34,.75);backdrop-filter:blur(10px); }
-    .jt { width:100%;border-collapse:collapse; }
-    .jt thead th { background:rgba(255,255,255,.03);padding:.65rem .95rem;text-align:left;font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap; }
-    .jt tbody tr { border-bottom:1px solid rgba(255,255,255,.03);transition:background .15s; }
-    .jt tbody tr:last-child { border-bottom:none; }
-    .jt tbody tr:hover { background:rgba(79,142,247,.05); }
-    .jt tbody tr.hidden { display:none; }
-    .jt td { padding:.8rem .95rem;vertical-align:middle; }
-    .td-n { width:38px;text-align:center;font-size:.7rem;color:#334155;font-family:'Inter',sans-serif; }
-    .td-p { font-family:'Inter',sans-serif;font-size:.87rem;font-weight:700;color:var(--text);white-space:nowrap;width:88px; }
-    .td-org { max-width:340px; }
-    .org-name { font-family:'Noto Serif Bengali',serif;font-size:.87rem;color:var(--text);font-weight:500;display:block;line-height:1.4; }
-    .org-sub { font-size:.68rem;color:var(--muted);font-family:'Inter',sans-serif;margin-top:2px; }
-    .td-dl { white-space:nowrap;width:140px; }
-    .dl-badge { display:inline-flex;align-items:center;gap:5px;font-size:.71rem;font-weight:500;padding:3px 9px;border-radius:6px;font-family:'Inter',sans-serif; }
-    .dl-active { background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2); }
-    .dl-urgent { background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2); }
-    .dl-expired { background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.15); }
-    .dl-none { font-size:.7rem;color:#334155;font-family:'Inter',sans-serif; }
-    .td-act { width:160px; }
-    .btn-row { display:flex;gap:5px;flex-wrap:wrap; }
-    .btn-d,.btn-p { display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:7px;font-size:.72rem;font-weight:500;font-family:'Inter',sans-serif;text-decoration:none;transition:all .18s;white-space:nowrap;border:1px solid; }
-    .btn-d { background:rgba(79,142,247,.1);color:#93c5fd;border-color:rgba(79,142,247,.25); }
-    .btn-d:hover { background:rgba(79,142,247,.22);transform:translateY(-1px); }
-    .btn-p { background:rgba(16,185,129,.1);color:#6ee7b7;border-color:rgba(16,185,129,.25); }
-    .btn-p:hover { background:rgba(16,185,129,.22);transform:translateY(-1px); }
+    /* STATS MINI */
+    .stats-mini{display:flex;gap:.5rem;padding:.5rem 1.25rem 0;overflow-x:auto;scrollbar-width:none}
+    .stats-mini::-webkit-scrollbar{display:none}
+    .stat-chip{display:flex;align-items:center;gap:5px;background:var(--s);border:1px solid var(--b);border-radius:8px;padding:.4rem .8rem;font-size:.72rem;white-space:nowrap;flex-shrink:0}
+    .stat-chip strong{font-size:.85rem;font-weight:700}
+    .sc-blue{color:var(--blue2)} .sc-amber{color:var(--amber2)} .sc-green{color:var(--green2)} .sc-gray{color:var(--gray2)}
 
-    /* NEW BADGE */
-    .new-tag { display:inline-block;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.3);font-size:.6rem;font-family:'Inter',sans-serif;font-weight:600;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle; }
+    /* MOBILE BOTTOM NAV */
+    .bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(7,11,20,.96);backdrop-filter:blur(20px);border-top:1px solid var(--b);padding:.3rem 0 calc(.3rem + env(safe-area-inset-bottom))}
+    .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:.4rem .5rem;cursor:pointer;border:none;background:none;color:var(--muted);transition:all .2s;position:relative}
+    .bnav-btn.active{color:var(--blue)}
+    .bnav-btn.active.t-saved{color:var(--amber)}
+    .bnav-btn.active.t-applied{color:var(--green)}
+    .bnav-btn.active.t-ignored{color:var(--gray2)}
+    .bnav-label{font-size:.58rem;font-weight:600;font-family:'Noto Serif Bengali',serif}
+    .bnav-badge{position:absolute;top:4px;right:calc(50% - 14px);font-size:.55rem;font-weight:700;background:var(--blue);color:#fff;border-radius:10px;padding:1px 5px;min-width:16px;text-align:center;display:none}
+    .bnav-btn.active .bnav-badge{display:block}
+    .bnav-btn:not(.active) .bnav-badge{display:block;background:var(--s2);color:var(--muted);border:1px solid var(--b)}
+    .bnav-btn.t-saved .bnav-badge{background:var(--amber)}
+    .bnav-btn.t-applied .bnav-badge{background:var(--green)}
+    .bnav-btn.t-ignored .bnav-badge{background:var(--gray)}
 
-    /* EMPTY */
-    .empty { text-align:center;padding:4rem;color:var(--muted);display:none; }
-    .empty svg { margin-bottom:1rem;opacity:.3; }
-
-    /* FOOTER */
-    footer { position:relative;z-index:1;border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:.75rem;color:var(--muted); }
-    footer a { color:var(--blue);text-decoration:none; }
-
-    /* FADE */
-    .fade-up { opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease; }
-    .fade-up.visible { opacity:1;transform:none; }
-
-    /* ERROR */
-    .err-msg { background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:1.5rem;text-align:center;color:#f87171;font-size:.85rem;font-family:'Noto Serif Bengali',serif; }
-
-    @media(max-width:768px) {
-      .jt thead th:nth-child(2),.jt td.td-p { display:none; }
+    /* DESKTOP */
+    @media(min-width:768px){
+      body{padding-bottom:0}
+      .bottom-nav{display:none}
+      .jobs-wrap{grid-template-columns:1fr}
+      .tab-btn{padding:.85rem 1.2rem}
     }
-    @media(max-width:540px) {
-      .jt thead th:nth-child(4),.jt td.td-dl { display:none; }
-      header { padding:0 1rem; }
+    @media(min-width:900px){
+      .jobs-wrap{grid-template-columns:repeat(2,1fr)}
     }
+    @media(min-width:1300px){
+      .jobs-wrap{grid-template-columns:repeat(3,1fr)}
+    }
+
+    /* SECTION DIVIDER */
+    .sec-divider{position:relative;z-index:1;padding:.2rem 1.25rem .4rem;display:flex;align-items:center;gap:.7rem}
+    .sec-divider h2{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+    .sec-divider hr{flex:1;border:none;border-top:1px solid var(--b)}
+
+    /* TOAST */
+    .toast-wrap{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;gap:.4rem;align-items:center;pointer-events:none}
+    @media(min-width:768px){.toast-wrap{bottom:24px}}
+    .toast{background:rgba(13,19,34,.95);border:1px solid var(--b2);border-radius:10px;padding:.55rem 1.1rem;font-size:.78rem;color:var(--text);font-family:'Noto Serif Bengali',serif;backdrop-filter:blur(12px);animation:toastIn .25s ease,toastOut .3s ease 1.8s forwards;white-space:nowrap}
+    @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes toastOut{to{opacity:0;transform:translateY(-8px)}}
   </style>
 </head>
 <body>
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
-  </div>
+  <div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
 
+  <!-- HEADER -->
   <header>
     <a href="#" class="logo">
       <div class="logo-icon">🇧🇩</div>
-      <span>Job Circular BD</span>
+      <span class="logo-text">Job Assistant</span>
     </a>
-    <div class="hdr-right">
-      <div class="live-badge"><div class="live-dot"></div> Live</div>
-      <div class="last-update" id="lastUpdate">লোড হচ্ছে...</div>
+    <div class="search-wrap">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="সংস্থার নাম খুঁজুন..." oninput="applyFilters()">
+    </div>
+    <div class="hdr-meta">
+      <div class="live-b"><div class="live-dot"></div><span id="hdrUpdate" style="font-size:.65rem;color:var(--muted)">...</span></div>
     </div>
   </header>
 
-  <section class="hero fade-up">
-    <div class="hero-eyebrow">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      প্রতিদিন স্বয়ংক্রিয়ভাবে আপডেট হয়
-    </div>
-    <h1>চাকরির বিজ্ঞপ্তি ২০২৬</h1>
-    <p>Biddabari, Safollo ও BCS Confidence থেকে সংগৃহীত সর্বশেষ সার্কুলার — প্রতিদিন নতুন আপডেট।</p>
-  </section>
-
-  <!-- STATS (dynamic) -->
-  <div class="stats fade-up" id="statsRow">
-    <div class="stat"><div class="stat-n" id="st-total">...</div><div class="stat-l">মোট সার্কুলার</div></div>
-    <div class="stat"><div class="stat-n">৩</div><div class="stat-l">উৎস</div></div>
-    <div class="stat"><div class="stat-n" id="st-bd">...</div><div class="stat-l">Biddabari</div></div>
-    <div class="stat"><div class="stat-n" id="st-sf">...</div><div class="stat-l">Safollo</div></div>
-    <div class="stat"><div class="stat-n" id="st-bcs">...</div><div class="stat-l">BCS Confidence</div></div>
+  <!-- TAB BAR (desktop) -->
+  <div class="tab-bar" id="tabBar">
+    <button class="tab-btn t-all active" onclick="setTab('all',this)">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      সব সার্কুলার <span class="tab-count" id="tc-all">0</span>
+    </button>
+    <button class="tab-btn t-saved" onclick="setTab('saved',this)">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      সেভ করা <span class="tab-count" id="tc-saved">0</span>
+    </button>
+    <button class="tab-btn t-applied" onclick="setTab('applied',this)">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      আবেদন করেছি <span class="tab-count" id="tc-applied">0</span>
+    </button>
+    <button class="tab-btn t-ignored" onclick="setTab('ignored',this)">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      উপেক্ষা করেছি <span class="tab-count" id="tc-ignored">0</span>
+    </button>
   </div>
 
-  <!-- CONTROLS -->
-  <div class="ctrl-wrap fade-up">
-    <div class="ctrl">
-      <div class="search-box">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="searchInput" placeholder="সংস্থার নাম বা পদ খুঁজুন..." oninput="doFilter()">
-      </div>
-      <div class="ftabs">
-        <button class="ftab active" data-f="all" onclick="setFilter(this,'all')"><span class="fdot" style="background:#94a3b8"></span>সব</button>
-        <button class="ftab" data-f="biddabari" onclick="setFilter(this,'biddabari')"><span class="fdot" style="background:#4f8ef7"></span>Biddabari</button>
-        <button class="ftab" data-f="safollo" onclick="setFilter(this,'safollo')"><span class="fdot" style="background:#10b981"></span>Safollo</button>
-        <button class="ftab" data-f="bcsconfidence" onclick="setFilter(this,'bcsconfidence')"><span class="fdot" style="background:#a78bfa"></span>BCS Confidence</button>
-      </div>
-      <span class="cnt-label">দেখাচ্ছে: <strong id="totalCount">—</strong> টি</span>
-    </div>
+  <!-- SOURCE FILTER -->
+  <div class="filter-bar">
+    <button class="src-btn active" data-f="all" onclick="setSrc(this,'all')"><span class="src-dot" style="background:#94a3b8"></span>সব উৎস</button>
+    <button class="src-btn" data-f="biddabari" onclick="setSrc(this,'biddabari')"><span class="src-dot" style="background:#4f8ef7"></span>Biddabari</button>
+    <button class="src-btn" data-f="safollo" onclick="setSrc(this,'safollo')"><span class="src-dot" style="background:#10b981"></span>Safollo</button>
+    <button class="src-btn" data-f="bcsconfidence" onclick="setSrc(this,'bcsconfidence')"><span class="src-dot" style="background:#a78bfa"></span>BCS Confidence</button>
+    <span class="cnt-info">দেখাচ্ছে: <strong id="visCount">0</strong> টি</span>
   </div>
 
-  <div class="main-wrap" id="mainWrap">
-    <div class="loading" id="loadingMsg">
-      <div class="spinner"></div>
-      <p style="font-family:'Noto Serif Bengali',serif">সার্কুলার লোড হচ্ছে...</p>
-    </div>
-    <div id="emptyState" class="empty">
-      <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <p style="font-family:'Noto Serif Bengali',serif">কোনো সার্কুলার পাওয়া যায়নি।</p>
-    </div>
-    <div id="content" style="display:none"></div>
+  <!-- STATS MINI -->
+  <div class="stats-mini" id="statsMini">
+    <div class="stat-chip"><strong class="sc-blue" id="sm-total">0</strong><span style="color:var(--muted)">মোট</span></div>
+    <div class="stat-chip"><strong class="sc-amber" id="sm-saved">0</strong><span style="color:var(--muted)">সেভ</span></div>
+    <div class="stat-chip"><strong class="sc-green" id="sm-applied">0</strong><span style="color:var(--muted)">আবেদন</span></div>
+    <div class="stat-chip"><strong class="sc-gray" id="sm-ignored">0</strong><span style="color:var(--muted)">উপেক্ষা</span></div>
   </div>
 
-  <footer>
-    তৈরি করেছেন <a href="https://ekramulhaque.live" target="_blank">Ekramul Haque</a> &nbsp;•&nbsp;
-    উৎস: Biddabari · Safollo Academy · BCS Confidence &nbsp;•&nbsp;
-    <span id="footerUpdate"></span>
-  </footer>
+  <!-- CONTENT -->
+  <div id="loadingState" class="loading" style="position:relative;z-index:1;margin-top:2rem">
+    <div class="spinner"></div>
+    <p style="font-family:'Noto Serif Bengali',serif">লোড হচ্ছে...</p>
+  </div>
+
+  <div id="emptyAll" class="empty-state" style="position:relative;z-index:1">
+    <div class="empty-icon">🔍</div>
+    <h3>কোনো সার্কুলার পাওয়া যায়নি</h3>
+    <p>অন্য কীওয়ার্ড দিয়ে খুঁজুন</p>
+  </div>
+  <div id="emptySaved" class="empty-state" style="position:relative;z-index:1">
+    <div class="empty-icon">🔖</div>
+    <h3>এখনো কিছু সেভ করেননি</h3>
+    <p>সার্কুলারে 🔖 সেভ বাটনে ক্লিক করুন</p>
+  </div>
+  <div id="emptyApplied" class="empty-state" style="position:relative;z-index:1">
+    <div class="empty-icon">✅</div>
+    <h3>এখনো কোথাও আবেদন করেননি</h3>
+    <p>সার্কুলারে ✓ আবেদন বাটনে ক্লিক করুন</p>
+  </div>
+  <div id="emptyIgnored" class="empty-state" style="position:relative;z-index:1">
+    <div class="empty-icon">🚫</div>
+    <h3>কোনো সার্কুলার উপেক্ষা করেননি</h3>
+    <p>সার্কুলারে ✕ উপেক্ষা বাটনে ক্লিক করুন</p>
+  </div>
+
+  <div class="jobs-wrap" id="jobsWrap" style="position:relative;z-index:1"></div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="bnav-btn t-all active" onclick="setTab('all', null, this)">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="bnav-label">সব</span>
+      <span class="bnav-badge" id="bn-all">0</span>
+    </button>
+    <button class="bnav-btn t-saved" onclick="setTab('saved', null, this)">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span class="bnav-label">সেভ</span>
+      <span class="bnav-badge" id="bn-saved">0</span>
+    </button>
+    <button class="bnav-btn t-applied" onclick="setTab('applied', null, this)">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      <span class="bnav-label">আবেদন</span>
+      <span class="bnav-badge" id="bn-applied">0</span>
+    </button>
+    <button class="bnav-btn t-ignored" onclick="setTab('ignored', null, this)">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <span class="bnav-label">উপেক্ষা</span>
+      <span class="bnav-badge" id="bn-ignored">0</span>
+    </button>
+  </nav>
+
+  <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-const IC_EXT = `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
-const IC_DL  = `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+// ─── STORAGE ────────────────────────────────────────────────────────────────
+const SK = 'jc_statuses_v2';
+function getStatuses() { try { return JSON.parse(localStorage.getItem(SK)||'{}'); } catch(e){ return {}; } }
+function saveStatuses(s) { localStorage.setItem(SK, JSON.stringify(s)); }
+function getStatus(id) { return getStatuses()[id] || null; }
+function setStatusRaw(id, status) {
+  const s = getStatuses();
+  if (status === null) delete s[id]; else s[id] = status;
+  saveStatuses(s);
+}
 
-let activeF = 'all';
-const TODAY = new Date().toISOString().slice(0,10);
+// ─── STATE ──────────────────────────────────────────────────────────────────
+let ALL_JOBS = [];   // flat array: {id, src, org/title, posts, deadline, deadline_status, detail_url, pdf_url, date_added}
+let activeTab = 'all';
+let activeSrc = 'all';
+let activeQ   = '';
 
+// ─── ICONS ──────────────────────────────────────────────────────────────────
+const IC = {
+  save:  `<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`,
+  ignore:`<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+  apply: `<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+  ext:   `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
+  pdf:   `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+  posts: `<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  cal:   `<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+};
+
+const SRC_LABELS = {biddabari:'Biddabari', safollo:'Safollo', bcsconfidence:'BCS Confidence'};
+const SRC_COLORS = {biddabari:'#4f8ef7', safollo:'#10b981', bcsconfidence:'#a78bfa'};
+
+// ─── IS NEW ─────────────────────────────────────────────────────────────────
 function isNew(dateAdded) {
   if (!dateAdded) return false;
-  const d = new Date(dateAdded);
-  const diff = (new Date() - d) / 86400000;
-  return diff <= 3;   // "NEW" tag if added within 3 days
+  return (Date.now() - new Date(dateAdded)) / 86400000 <= 3;
 }
 
+// ─── DEADLINE BADGE ─────────────────────────────────────────────────────────
 function dlBadge(dl, st) {
-  if (!dl || dl === '—') return '<span class="dl-none">—</span>';
-  const cls = {active:'dl-active',urgent:'dl-urgent',expired:'dl-expired'}[st] || 'dl-none';
-  const em  = {active:'🟢',urgent:'🟡',expired:'🔴'}[st] || '';
-  return `<span class="dl-badge ${cls}">${em} ${dl}</span>`;
+  if (!dl || dl === '—') return `<span style="font-size:.7rem;color:var(--muted)">—</span>`;
+  const cls = {active:'dl-active',urgent:'dl-urgent',expired:'dl-expired'}[st]||'';
+  const em  = {active:'🟢',urgent:'🟡',expired:'🔴'}[st]||'';
+  return `<span class="dl-pill ${cls}">${em} ${dl}</span>`;
 }
 
-function buildBiddabariRow(d, i) {
-  const newTag = isNew(d.date_added) ? '<span class="new-tag">NEW</span>' : '';
+// ─── BUILD CARD ─────────────────────────────────────────────────────────────
+function buildCard(job, status) {
+  const src   = job.src;
+  const color = SRC_COLORS[src] || '#94a3b8';
+  const label = SRC_LABELS[src] || src;
+  const title = job.org || job.title || '—';
+  const posts = job.posts || '—';
+  const dl    = job.deadline || '—';
+  const dst   = job.deadline_status || 'none';
+  const det   = job.detail_url || '#';
+  const pdf   = job.pdf_url || '';
+
+  const saveActive    = status === 'saved'   ? 'active' : '';
+  const ignoreActive  = status === 'ignored' ? 'active' : '';
+  const applyActive   = status === 'applied' ? 'active' : '';
+
+  const saveText   = status === 'saved'   ? `${IC.save} সেভ ✓`   : `${IC.save} সেভ`;
+  const ignoreText = status === 'ignored' ? `${IC.ignore} পুনরুদ্ধার` : `${IC.ignore} উপেক্ষা`;
+  const applyText  = status === 'applied' ? `${IC.apply} আবেদন ✓` : `${IC.apply} আবেদন`;
+
+  const statusClass = status ? `status-${status}` : '';
+  const newTag = isNew(job.date_added) ? `<span class="tag tag-new">🆕 নতুন</span>` : '';
+  const savedTag  = status === 'saved'   ? `<span class="tag tag-saved">🔖 সেভ</span>` : '';
+  const appliedTag= status === 'applied' ? `<span class="tag tag-applied">✅ আবেদন</span>` : '';
+
+  const tabData = getTabData(status);
+
   return `
-  <tr data-src="biddabari" data-q="${(d.org||'').toLowerCase()}">
-    <td class="td-n">${i+1}</td>
-    <td class="td-p">${d.posts||'—'}</td>
-    <td class="td-org"><span class="org-name">${d.org||'—'}${newTag}</span></td>
-    <td class="td-dl">${dlBadge(d.deadline, d.deadline_status)}</td>
-    <td class="td-act">
-      <div class="btn-row">
-        <a href="${d.detail_url}" target="_blank" class="btn-d">${IC_EXT} বিস্তারিত</a>
-        ${d.pdf_url ? `<a href="${d.pdf_url}" target="_blank" class="btn-p">${IC_DL} PDF</a>` : ''}
+<div class="job-card ${statusClass}" data-id="${job.id}" data-src="${src}" data-status="${status||''}" data-tab="${tabData}" data-q="${title.toLowerCase()}">
+  <div class="card-top">
+    <div class="src-stripe" style="background:${color};min-width:3px"></div>
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-src-${src}">${label}</span>
+        ${newTag}${savedTag}${appliedTag}
       </div>
-    </td>
-  </tr>`;
-}
-
-function buildSafolloRow(d, i) {
-  const newTag = isNew(d.date_added) ? '<span class="new-tag">NEW</span>' : '';
-  return `
-  <tr data-src="safollo" data-q="${(d.org||'').toLowerCase()}">
-    <td class="td-n">${i+1}</td>
-    <td class="td-p">${d.posts||'—'}</td>
-    <td class="td-org"><span class="org-name">${d.org||'—'}${newTag}</span></td>
-    <td class="td-dl">${dlBadge(d.deadline, d.deadline_status)}</td>
-    <td class="td-act">
-      <div class="btn-row">
-        <a href="${d.detail_url}" target="_blank" class="btn-d">${IC_EXT} বিস্তারিত</a>
-        ${d.pdf_url ? `<a href="${d.pdf_url}" target="_blank" class="btn-p">${IC_DL} PDF</a>` : ''}
+      <div class="card-title">${title}</div>
+      <div class="card-meta">
+        ${posts !== '—' ? `<span class="meta-item">${IC.posts} ${posts} পদ</span>` : ''}
+        ${dl !== '—' ? `<span class="meta-item">${IC.cal} ${dlBadge(dl,dst)}</span>` : ''}
       </div>
-    </td>
-  </tr>`;
-}
-
-function buildBCSRow(d, i) {
-  const newTag = isNew(d.date_added) ? '<span class="new-tag">NEW</span>' : '';
-  return `
-  <tr data-src="bcsconfidence" data-q="${(d.title||'').toLowerCase()}">
-    <td class="td-n">${i+1}</td>
-    <td class="td-p" style="font-size:.72rem;color:var(--muted);font-weight:400">${d.date||'—'}</td>
-    <td class="td-org"><span class="org-name">${d.title||'—'}${newTag}</span></td>
-    <td class="td-dl"><span style="font-size:.68rem;color:var(--muted)">BCS Confidence</span></td>
-    <td class="td-act"><a href="${d.detail_url}" target="_blank" class="btn-d">${IC_EXT} পড়ুন</a></td>
-  </tr>`;
-}
-
-function buildSection(key, color, label, sourceUrl, rows, headers) {
-  return `
-  <div data-sg="${key}">
-    <div class="sec-head fade-up">
-      <span class="sec-dot" style="background:${color}"></span>
-      <h2 style="color:${color}">${label}</h2>
-      <span class="sec-badge">${rows.length} সার্কুলার</span>
-      <a href="${sourceUrl}" target="_blank" class="sec-ml">${new URL(sourceUrl).hostname} ↗</a>
     </div>
-    <div class="tbl-wrap fade-up">
-      <table class="jt">
-        <thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
-        <tbody>${rows.join('')}</tbody>
-      </table>
+  </div>
+  <div class="card-actions">
+    <div class="act-group">
+      <button class="btn-act btn-save ${saveActive}" onclick="doAction('${job.id}','saved')" title="সেভ করুন">${saveText}</button>
+      <button class="btn-act btn-ignore ${ignoreActive}" onclick="doAction('${job.id}','ignored')" title="উপেক্ষা করুন">${ignoreText}</button>
+      <button class="btn-act btn-apply ${applyActive}" onclick="doAction('${job.id}','applied')" title="আবেদন করেছি">${applyText}</button>
     </div>
-  </div>`;
+    <div class="link-group">
+      <a href="${det}" target="_blank" class="btn-link">${IC.ext} বিস্তারিত</a>
+      ${pdf ? `<a href="${pdf}" target="_blank" class="btn-link pdf">${IC.pdf} PDF</a>` : ''}
+    </div>
+  </div>
+</div>`;
 }
 
-function setFilter(btn, f) {
-  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+function getTabData(status) {
+  if (!status) return 'all';
+  if (status === 'saved') return 'all saved';
+  if (status === 'applied') return 'applied';
+  if (status === 'ignored') return 'ignored';
+  return 'all';
+}
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+function renderAll() {
+  const statuses = getStatuses();
+  const wrap = document.getElementById('jobsWrap');
+  wrap.innerHTML = ALL_JOBS.map(j => buildCard(j, statuses[j.id]||null)).join('');
+  updateCounts();
+  applyFilters();
+}
+
+// ─── APPLY FILTERS ──────────────────────────────────────────────────────────
+function applyFilters() {
+  activeQ = (document.getElementById('searchInput').value || '').toLowerCase();
+  let vis = 0;
+
+  document.querySelectorAll('.job-card').forEach(card => {
+    const tabOk = card.dataset.tab.includes(activeTab);
+    const srcOk = activeSrc === 'all' || card.dataset.src === activeSrc;
+    const qOk   = !activeQ  || card.dataset.q.includes(activeQ);
+    const show  = tabOk && srcOk && qOk;
+    card.classList.toggle('is-hidden', !show);
+    if (show) vis++;
+  });
+
+  document.getElementById('visCount').textContent = vis;
+
+  // Empty states
+  const empties = {all:'emptyAll', saved:'emptySaved', applied:'emptyApplied', ignored:'emptyIgnored'};
+  Object.values(empties).forEach(id => document.getElementById(id).style.display = 'none');
+  if (vis === 0) document.getElementById(empties[activeTab]).style.display = 'block';
+}
+
+// ─── UPDATE COUNTS ──────────────────────────────────────────────────────────
+function updateCounts() {
+  const statuses = getStatuses();
+  let counts = {all:0, saved:0, applied:0, ignored:0};
+  ALL_JOBS.forEach(j => {
+    const st = statuses[j.id] || null;
+    counts.all++;
+    if (st === 'saved')   counts.saved++;
+    if (st === 'applied') counts.applied++;
+    if (st === 'ignored') counts.ignored++;
+  });
+
+  // Tab bar
+  document.getElementById('tc-all').textContent     = counts.all;
+  document.getElementById('tc-saved').textContent   = counts.saved;
+  document.getElementById('tc-applied').textContent = counts.applied;
+  document.getElementById('tc-ignored').textContent = counts.ignored;
+
+  // Bottom nav badges
+  document.getElementById('bn-all').textContent     = counts.all;
+  document.getElementById('bn-saved').textContent   = counts.saved;
+  document.getElementById('bn-applied').textContent = counts.applied;
+  document.getElementById('bn-ignored').textContent = counts.ignored;
+
+  // Stats mini
+  document.getElementById('sm-total').textContent   = counts.all;
+  document.getElementById('sm-saved').textContent   = counts.saved;
+  document.getElementById('sm-applied').textContent = counts.applied;
+  document.getElementById('sm-ignored').textContent = counts.ignored;
+}
+
+// ─── DO ACTION ──────────────────────────────────────────────────────────────
+function doAction(id, newStatus) {
+  const current = getStatus(id);
+
+  // Toggle: clicking same status removes it
+  let finalStatus = (current === newStatus) ? null : newStatus;
+
+  // Special: if applying while saved, just switch to applied (no toggle back)
+  if (newStatus === 'applied' && current !== 'applied') finalStatus = 'applied';
+
+  setStatusRaw(id, finalStatus);
+
+  // Update card in place
+  const card = document.querySelector(`.job-card[data-id="${id}"]`);
+  if (!card) { renderAll(); return; }
+
+  // Re-render just this card
+  const job = ALL_JOBS.find(j => j.id === id);
+  if (!job) return;
+
+  const newHtml = buildCard(job, finalStatus);
+  const tmp = document.createElement('div');
+  tmp.innerHTML = newHtml;
+  const newCard = tmp.firstElementChild;
+  card.replaceWith(newCard);
+  newCard.classList.add('animating');
+  setTimeout(() => newCard.classList.remove('animating'), 350);
+
+  updateCounts();
+  applyFilters();
+
+  // Toast
+  const msgs = {
+    saved:   '🔖 সেভ করা হয়েছে',
+    applied: '✅ আবেদন চিহ্নিত হয়েছে',
+    ignored: '🚫 উপেক্ষা করা হয়েছে',
+    null:    '↩ পূর্বাবস্থায় ফিরেছে',
+  };
+  showToast(msgs[finalStatus] || msgs.null);
+}
+
+// ─── TOAST ──────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(() => t.remove(), 2200);
+}
+
+// ─── TAB ────────────────────────────────────────────────────────────────────
+function setTab(tab, desktopBtn, mobileBtn) {
+  activeTab = tab;
+
+  // desktop tab bar
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const dbtn = desktopBtn || document.querySelector(`.tab-btn.t-${tab}`);
+  if (dbtn) dbtn.classList.add('active');
+
+  // mobile bottom nav
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  const mbtn = mobileBtn || document.querySelector(`.bnav-btn.t-${tab}`);
+  if (mbtn) mbtn.classList.add('active');
+
+  applyFilters();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ─── SOURCE FILTER ──────────────────────────────────────────────────────────
+function setSrc(btn, src) {
+  activeSrc = src;
+  document.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  activeF = f;
-  document.querySelectorAll('[data-sg]').forEach(el => {
-    el.style.display = (f === 'all' || el.dataset.sg === f) ? '' : 'none';
-  });
-  doFilter();
+  applyFilters();
 }
 
-function doFilter() {
-  const q = (document.getElementById('searchInput').value || '').toLowerCase();
-  let n = 0;
-  document.querySelectorAll('tbody tr').forEach(tr => {
-    const ok = (activeF === 'all' || tr.dataset.src === activeF) && (!q || (tr.dataset.q||'').includes(q));
-    tr.classList.toggle('hidden', !ok);
-    if (ok) n++;
-  });
-  document.getElementById('totalCount').textContent = n;
-  document.getElementById('emptyState').style.display = n === 0 ? 'block' : 'none';
-}
-
+// ─── LOAD DATA ──────────────────────────────────────────────────────────────
 async function loadData() {
   try {
     const res = await fetch('data/circulars.json?v=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
 
-    // Stats
-    const bd  = data.biddabari      || [];
-    const sf  = data.safollo        || [];
-    const bcs = data.bcsconfidence  || [];
-    const total = bd.length + sf.length + bcs.length;
+    ALL_JOBS = [];
+    (data.biddabari || []).forEach(j => ALL_JOBS.push({...j, src:'biddabari'}));
+    (data.safollo || []).forEach(j => ALL_JOBS.push({...j, src:'safollo'}));
+    (data.bcsconfidence || []).forEach(j => ALL_JOBS.push({...j, src:'bcsconfidence', org: j.title}));
 
-    document.getElementById('st-total').textContent = total;
-    document.getElementById('st-bd').textContent    = bd.length;
-    document.getElementById('st-sf').textContent    = sf.length;
-    document.getElementById('st-bcs').textContent   = bcs.length;
-    document.getElementById('totalCount').textContent = total;
-
-    // Last update
     const upd = data.last_updated || '';
-    document.getElementById('lastUpdate').textContent = upd ? 'আপডেট: ' + upd : '';
-    document.getElementById('footerUpdate').textContent = upd ? 'সর্বশেষ আপডেট: ' + upd : '';
+    document.getElementById('hdrUpdate').textContent = upd ? 'আপডেট: ' + upd : '';
 
-    // Build HTML
-    const bdRows  = bd.map((d,i)  => buildBiddabariRow(d,i));
-    const sfRows  = sf.map((d,i)  => buildSafolloRow(d,i));
-    const bcsRows = bcs.map((d,i) => buildBCSRow(d,i));
+    document.getElementById('loadingState').style.display = 'none';
+    renderAll();
 
-    const html =
-      buildSection('biddabari','#4f8ef7','Biddabari','https://biddabari.com/job-circular', bdRows,
-        ['#','পদ সংখ্যা','সংস্থার নাম','আবেদনের শেষ তারিখ','লিংক ও PDF']) +
-      buildSection('safollo','#10b981','Safollo Academy','https://www.safollo.ac/job-circular', sfRows,
-        ['#','পদ সংখ্যা','সংস্থার নাম','আবেদনের শেষ তারিখ','লিংক']) +
-      buildSection('bcsconfidence','#a78bfa','BCS Confidence','https://www.bcsconfidence.online/job-news', bcsRows,
-        ['#','তারিখ','শিরোনাম','উৎস','বিস্তারিত']);
-
-    document.getElementById('loadingMsg').style.display = 'none';
-    const content = document.getElementById('content');
-    content.innerHTML = html;
-    content.style.display = '';
-
-    // Scroll fade for dynamically added elements
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.06 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-    doFilter();
-
-  } catch (err) {
+  } catch(err) {
     console.error(err);
-    document.getElementById('loadingMsg').style.display = 'none';
-    document.getElementById('mainWrap').insertAdjacentHTML('afterbegin',
-      `<div class="err-msg">⚠ ডেটা লোড করতে সমস্যা হয়েছে। পেইজটি রিফ্রেশ করুন।<br><small style="color:var(--muted);font-family:monospace">${err.message}</small></div>`
-    );
+    document.getElementById('loadingState').innerHTML =
+      `<div style="color:var(--red2);font-family:'Noto Serif Bengali',serif">⚠ ডেটা লোড করতে সমস্যা হয়েছে।<br><small style="color:var(--muted);font-size:.7rem">${err.message}</small></div>`;
   }
 }
 
-// Init
-document.addEventListener('DOMContentLoaded', () => {
-  // Fade-up for static elements
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-  loadData();
-});
+document.addEventListener('DOMContentLoaded', loadData);
 </script>
 </body>
 </html>
