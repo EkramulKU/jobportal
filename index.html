@@ -254,32 +254,32 @@
   <!-- SYNC MODAL -->
   <div class="modal-overlay" id="syncModal" onclick="if(event.target===this)closeSyncModal()">
     <div class="modal">
+      <h3>⚙ Settings</h3>
 
-      <!-- WORKER URL SECTION -->
-      <h3>⚡ Update URL (সহজ পদ্ধতি)</h3>
-      <p>Cloudflare Worker URL দিন — তাহলে যেকোনো ডিভাইস থেকে token ছাড়াই 🔄 আপডেট করা যাবে।<br>
-      <a href="https://workers.cloudflare.com" target="_blank" style="color:var(--blue2)">Cloudflare Worker</a> কীভাবে বানাবেন: নিচের নির্দেশনা দেখুন।</p>
-      <input class="modal-input" id="workerUrlInput" type="url" placeholder="https://job-update.yourname.workers.dev" autocomplete="off">
-      <div style="display:flex;gap:.5rem;margin-bottom:1.2rem">
-        <button class="mbtn mbtn-primary" onclick="saveWorkerUrl()" style="flex:2">⚡ Save করুন</button>
-        <button class="mbtn mbtn-danger" id="clearWorkerBtn" onclick="clearWorkerUrl()" style="display:none;flex:1">✕ মুছুন</button>
-      </div>
-      <div id="workerStatusMsg" class="sync-status"></div>
+      <!-- UPDATE SECTION -->
+      <p style="font-size:.8rem;color:var(--muted2);font-family:'Noto Serif Bengali',serif;margin-bottom:.8rem">
+        <strong style="color:var(--amber2)">🔄 আপডেট বাটন:</strong> GitHub token একবার দিলে যেকোনো device থেকে শুধু ই বাটন চাপলেই new circular আসবে।<br>
+        <strong style="color:var(--green2)">⏰ শিডিউল:</strong> প্রতি ৬ ঘন্টায় automatically update হয় — কোনো কিছু লাগে না।
+      </p>
 
-      <hr style="border:none;border-top:1px solid var(--b);margin:1rem 0">
+      <hr style="border:none;border-top:1px solid var(--b);margin:.8rem 0">
 
-      <!-- GITHUB SYNC SECTION -->
-      <h3 style="margin-bottom:.3rem">☁ Cross-Browser Sync (ঐচ্ছিক)</h3>
-      <p>GitHub Token দিন — সব browser এ Save/Ignore/Apply sync হবে।<br>
-      Token scope: <span style="color:var(--amber2);font-weight:700">gist</span> + <span style="color:var(--amber2);font-weight:700">workflow</span></p>
+      <!-- GITHUB TOKEN SECTION -->
+      <h3 style="margin-bottom:.4rem">🔑 GitHub Token</h3>
+      <p style="font-size:.75rem;color:var(--muted2);font-family:'Noto Serif Bengali',serif;margin-bottom:.6rem">
+        Token দিলে 🔄 আপডেট কাজ করবে + সব browser এ data sync হবে।<br>
+        Scope: <span style="color:var(--amber2);font-weight:700">gist</span> + <span style="color:var(--amber2);font-weight:700">workflow</span>
+      </p>
       <input class="modal-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
       <div id="syncStatusMsg" class="sync-status"></div>
       <div class="modal-actions" style="margin-top:.8rem">
-        <button class="mbtn mbtn-primary" onclick="connectGist()">✓ Connect করুন</button>
+        <button class="mbtn mbtn-primary" onclick="connectGist()">✓ Save করুন</button>
         <button class="mbtn mbtn-danger" id="disconnectBtn" onclick="disconnectGist()" style="display:none">✕ Disconnect</button>
         <button class="mbtn mbtn-ghost" onclick="closeSyncModal()">বাতিল</button>
       </div>
-      <p style="margin-top:1rem;font-size:.68rem;color:var(--muted)">Token বানান: <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--blue2)">github.com/settings/tokens</a></p>
+      <p style="margin-top:.8rem;font-size:.67rem;color:var(--muted)">
+        Token বানান: <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--blue2)">github.com/settings/tokens</a> → New token (classic) → scope: gist + workflow → Generate
+      </p>
     </div>
   </div>
 
@@ -384,45 +384,6 @@
 const SK      = 'jc_statuses_v2';
 const TK      = 'jc_gh_token';
 const GID_KEY = 'jc_gist_id';
-const WK_KEY  = 'jc_worker_url';   // Cloudflare Worker URL
-
-let workerUrl = null;
-
-function loadWorkerUrl() {
-  workerUrl = localStorage.getItem(WK_KEY) || null;
-  const inp = document.getElementById('workerUrlInput');
-  const clr = document.getElementById('clearWorkerBtn');
-  if (workerUrl) {
-    if (inp) inp.value = workerUrl;
-    if (clr) clr.style.display = '';
-    setWorkerMsg('⚡ Worker URL সেট আছে — token ছাড়াই আপডেট হবে', 'ok');
-  }
-}
-
-function saveWorkerUrl() {
-  const val = (document.getElementById('workerUrlInput').value || '').trim();
-  if (!val || !val.startsWith('http')) { setWorkerMsg('সঠিক URL দিন (https://...)', 'err'); return; }
-  workerUrl = val;
-  localStorage.setItem(WK_KEY, val);
-  document.getElementById('clearWorkerBtn').style.display = '';
-  setWorkerMsg('✅ Saved! এখন 🔄 আপডেট বাটন token ছাড়াই কাজ করবে', 'ok');
-  setTimeout(closeSyncModal, 1500);
-}
-
-function clearWorkerUrl() {
-  workerUrl = null;
-  localStorage.removeItem(WK_KEY);
-  document.getElementById('workerUrlInput').value = '';
-  document.getElementById('clearWorkerBtn').style.display = 'none';
-  setWorkerMsg('Worker URL মুছে গেছে', '');
-}
-
-function setWorkerMsg(msg, type) {
-  const el = document.getElementById('workerStatusMsg');
-  if (!el) return;
-  el.textContent = msg;
-  el.className = 'sync-status' + (type ? ' ' + type : '');
-}
 
 function getStatuses() { try { return JSON.parse(localStorage.getItem(SK)||'{}'); } catch(e){ return {}; } }
 function saveStatuses(s) { localStorage.setItem(SK, JSON.stringify(s)); }
@@ -576,15 +537,11 @@ let updateTimer = null;
 async function triggerUpdate() {
   const btn   = document.getElementById('updateBtn');
   const label = document.getElementById('updateLabel');
-
-  // Priority 1: Use Cloudflare Worker (no token needed)
-  const wUrl = workerUrl || localStorage.getItem(WK_KEY);
-  // Priority 2: Use stored GitHub token
   const token = syncToken || localStorage.getItem(TK);
 
-  if (!wUrl && !token) {
+  if (!token) {
     openSyncModal();
-    setWorkerMsg('⚠ আগে Worker URL অথবা GitHub Token দিন', 'err');
+    setSyncMsg('⚠ আপডেট করতে প্রথমে GitHub Token দিন', 'err');
     return;
   }
 
@@ -593,55 +550,44 @@ async function triggerUpdate() {
   label.textContent = 'চলছে...';
 
   try {
-    let ok = false;
-
-    if (wUrl) {
-      // Call Cloudflare Worker (no auth needed)
-      const r = await fetch(wUrl, { method: 'POST' });
-      ok = r.ok;
-      if (!ok) throw new Error(`Worker error: HTTP ${r.status}`);
-    } else {
-      // Fallback: direct GitHub API with token
-      const r = await fetch(
-        'https://api.github.com/repos/EkramulKU/jobportal/actions/workflows/update_circulars.yml/dispatches',
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `token ${token}`,
-            'Accept': 'application/vnd.github+json',
-            'Content-Type': 'application/json',
-            'User-Agent': 'JobAssistant'
-          },
-          body: JSON.stringify({ref: 'master'})
-        }
-      );
-      if (r.status === 401 || r.status === 403) {
-        openSyncModal();
-        setSyncMsg('❌ Token এ workflow scope নেই — নতুন token বানান', 'err');
-        resetUpdateBtn();
-        return;
+    const r = await fetch(
+      'https://api.github.com/repos/EkramulKU/jobportal/actions/workflows/update_circulars.yml/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'User-Agent': 'JobAssistant'
+        },
+        body: JSON.stringify({ref: 'master'})
       }
-      ok = r.status === 204;
-    }
+    );
 
-    if (ok) {
-      showToast('🚀 Update শুরু — ২ মিনিট পরে নতুন circular দেখাবে');
-      label.textContent = '⏳ ২ মিনিট...';
-      let secs = 120;
-      clearInterval(updateTimer);
-      updateTimer = setInterval(async () => {
-        secs--;
-        if (secs > 0) {
-          label.textContent = `⏳ ${secs}s...`;
-        } else {
-          clearInterval(updateTimer);
-          label.textContent = '📥 লোড হচ্ছে...';
-          await loadData();
-          showToast('✅ নতুন circular আপডেট হয়েছে!');
-          resetUpdateBtn();
-        }
-      }, 1000);
+    if (r.status === 401 || r.status === 403) {
+      openSyncModal();
+      setSyncMsg('❌ Token এ workflow scope নেই — নতুন token বানান', 'err');
+      resetUpdateBtn();
+      return;
     }
+    if (r.status !== 204) throw new Error(`HTTP ${r.status}`);
+
+    showToast('🚀 Update শুরু — ২ মিনিট পরে নতুন circular দেখাবে');
+    label.textContent = '⏳ ২ মিনিট...';
+    let secs = 120;
+    clearInterval(updateTimer);
+    updateTimer = setInterval(async () => {
+      secs--;
+      if (secs > 0) {
+        label.textContent = `⏳ ${secs}s...`;
+      } else {
+        clearInterval(updateTimer);
+        label.textContent = '📥 লোড হচ্ছে...';
+        await loadData();
+        showToast('✅ নতুন circular আপডেট হয়েছে!');
+        resetUpdateBtn();
+      }
+    }, 1000);
   } catch(e) {
     showToast('❌ ' + (e.message || 'সমস্যা হয়েছে'));
     resetUpdateBtn();
@@ -923,7 +869,6 @@ async function loadData() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadWorkerUrl();
   loadSyncConfig();
   loadData();
   if (syncToken && syncGistId) syncFromGist();
