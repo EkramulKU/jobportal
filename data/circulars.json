@@ -1,6 +1,26 @@
 {
-  "last_updated": "2026-09-30 02:51 UTC",
+  "last_updated": "2026-09-30 11:31 UTC",
   "biddabari": [
+    {
+      "id": "mowca-Biddabari-circular",
+      "org": "Mowca Biddabari Circular",
+      "posts": "—",
+      "deadline": "—",
+      "deadline_status": "none",
+      "detail_url": "https://biddabari.com/job-circular-details/mowca-Biddabari-circular",
+      "pdf_url": "https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/women-and-child-1790758866-1052.pdf",
+      "date_added": "2026-09-30"
+    },
+    {
+      "id": "mos-Biddabari-Cicular",
+      "org": "Mos Biddabari Cicular",
+      "posts": "—",
+      "deadline": "—",
+      "deadline_status": "none",
+      "detail_url": "https://biddabari.com/job-circular-details/mos-Biddabari-Cicular",
+      "pdf_url": "https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/mos20260921-1790591539-4145.pdf",
+      "date_added": "2026-09-30"
+    },
     {
       "id": "bb-airlines-Biddabari-Circular",
       "org": "Bb Airlines Biddabari Circular",
