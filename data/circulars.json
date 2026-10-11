@@ -1,6 +1,36 @@
 {
-  "last_updated": "2026-10-11 11:45 UTC",
+  "last_updated": "2026-10-11 16:57 UTC",
   "biddabari": [
+    {
+      "id": "cid-bangladesh-police-job-circular-2026",
+      "org": "বাংলাদেশ পুলিশের সিআইডি নিয়োগ বিজ্ঞপ্তি ২০২৬",
+      "posts": "—",
+      "deadline": "—",
+      "deadline_status": "none",
+      "detail_url": "https://biddabari.com/job-circular-details/cid-bangladesh-police-job-circular-2026",
+      "pdf_url": "https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/cid-1791726251-3919.pdf",
+      "date_added": "2026-10-11"
+    },
+    {
+      "id": "bangladesh-coast-guard-job-circular-2026",
+      "org": "বাংলাদেশ কোস্ট গার্ড নিয়োগ বিজ্ঞপ্তি ২০২৬",
+      "posts": "—",
+      "deadline": "—",
+      "deadline_status": "none",
+      "detail_url": "https://biddabari.com/job-circular-details/bangladesh-coast-guard-job-circular-2026",
+      "pdf_url": "https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/coast-guard-1791724483-6420.pdf",
+      "date_added": "2026-10-11"
+    },
+    {
+      "id": "tax-commissioner-office-dhaka-3-job-circular-2026",
+      "org": "কর অঞ্চল-৩ ঢাকা নিয়োগ বিজ্ঞপ্তি ২০২৬",
+      "posts": "—",
+      "deadline": "—",
+      "deadline_status": "none",
+      "detail_url": "https://biddabari.com/job-circular-details/tax-commissioner-office-dhaka-3-job-circular-2026",
+      "pdf_url": "https://storage.biddabari.online/biddabari-bucket/backend/assets/uploaded-files/job-circular/dhaka-tax-3-1791724283-8199.pdf",
+      "date_added": "2026-10-11"
+    },
     {
       "id": "bangladesh-child-hospital-institute-job-circular-2026",
       "org": "বাংলাদেশ শিশু হাসপাতাল ও ইনস্টিটিউট নিয়োগ ২০২৬",
